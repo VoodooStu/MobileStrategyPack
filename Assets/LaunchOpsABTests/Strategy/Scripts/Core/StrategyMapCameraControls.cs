@@ -110,13 +110,17 @@ public class StrategyMapCameraControls : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, BuildingLayer))
                 {
                     BuildingController building = hit.collider.GetComponentInParent<BuildingController>();
-                    if (building != null)
+                    if (building != null && building.BuildingDefinition.Level>0)
                     {
                         _currentBuilding = building;
                         _currentBuilding.Select();
                         BuildingManager.Instance.SelectBuilding(building.BuildingDefinition);
                         SetCamera(building.BuildingCamera);
                         CurrentZoom = _currentVCam.m_Lens.FieldOfView;
+                    }else if(building != null && building.BuildingDefinition.Level == 0)
+                    {
+                        StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition, BuildingManager.Instance.TryUpgradeBuilding);
+                        StrategyUIManager.Instance.BuildBuildingPopUp.Show();
                     }
                 }
             }

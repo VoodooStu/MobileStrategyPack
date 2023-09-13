@@ -37,6 +37,7 @@ public class BuildBuildingPopUp : MonoBehaviour
     public void OnClickButton()
     {
         OnClick?.Invoke(Data);
+        Hide();
     }
 
     public void Show()

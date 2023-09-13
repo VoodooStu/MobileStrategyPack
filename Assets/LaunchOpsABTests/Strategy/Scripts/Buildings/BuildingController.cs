@@ -9,13 +9,18 @@ public class BuildingController : MonoBehaviour
     public BuildingDefinitionSO BuildingDefinition;
     public Animator BuildingAnimator;
     public Cinemachine.CinemachineVirtualCamera BuildingCamera;
+    public List<BuildingController> SubBuildings; 
     private void Start()
     {
-        BuildingCamera.Priority = -10;
+        if(BuildingCamera!=null)
+            BuildingCamera.Priority = -10;
         SetLevel(BuildingDefinition.Level, false);
         BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
     }
-
+    private void OnDestroy()
+    {
+        BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingLevelUp;
+    }
     private void OnBuildingLevelUp(BuildingDefinitionSO building)
     {
         if(building == BuildingDefinition)
@@ -38,6 +43,24 @@ public class BuildingController : MonoBehaviour
             {
 
                 BuildingAnimator.SetTrigger("Set");
+
+            }
+        }
+
+        foreach (var subBuilding in SubBuildings)
+        {
+            var data = BuildingDefinition.UpgradeConstraints.Find(x => x.BuildingDefinition == subBuilding.BuildingDefinition);
+            if(data == null)
+            {
+                subBuilding.gameObject.SetActive(false);
+            }
+            else if(BuildingDefinition.Level>= data.StartLevel)
+            {
+                subBuilding.gameObject.SetActive(true);
+            }
+            else
+            {
+                subBuilding.gameObject.SetActive(false);
 
             }
         }

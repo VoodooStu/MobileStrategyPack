@@ -66,6 +66,12 @@ public class BuildingManager : MonoBehaviour
             StrategyDataManager.Spend(price);
             StrategyDataManager.UpgradeBuildingLevel(building.ID);
             OnBuildingUpgraded?.Invoke(building);
+            if(building.BuildingType == BuildingType.Main)
+            {
+                StrategyUIManager.Instance.BuildingStatusView.Fill(building);
+                StrategyUIManager.Instance.BuildingStatusView.Show();
+            }
+            
         }
     }
 

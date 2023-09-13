@@ -59,8 +59,18 @@ public class ResourceManager : MonoBehaviour
         CalculateResources(ref resources, numberOfSeconds);
       
         LastResourceGeneration.Value = DateTime.UtcNow;
-        StrategyUIManager.Instance.ResourceCollectView.Fill(resources);
-        StrategyUIManager.Instance.ResourceCollectView.Show();
+
+        float totalResources = 0;
+        foreach(var r in resources)
+        {
+            totalResources += r.Value;
+        }
+        if (totalResources > 0)
+        {
+            StrategyUIManager.Instance.ResourceCollectView.Fill(resources);
+            StrategyUIManager.Instance.ResourceCollectView.Show();
+        }
+      
     }
 
     public List<ResourceIcon> ResourceIcons = new List<ResourceIcon>();

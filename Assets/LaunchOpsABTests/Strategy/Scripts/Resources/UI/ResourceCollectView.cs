@@ -33,7 +33,10 @@ public class ResourceCollectView : MonoBehaviour
         }
         Hide();
     }
-
+    private void Awake()
+    {
+        Hide();
+    }
     public void Show()
     {
         this.gameObject.SetActive(true);
