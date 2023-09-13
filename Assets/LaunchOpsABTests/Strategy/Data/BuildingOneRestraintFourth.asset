@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: BuildingOneRestraintFourth
   m_EditorClassIdentifier: 
   BuildingClass: 0
-  BuildingType: 1
+  BuildingType: 2
   BuildingName: Building Restraint Four
   BuildingDescription: This is a definition of the restraint
-  MaxLevel: 50
   Icon: {fileID: 21300000, guid: 17035c204825f6340a252046ab6476fd, type: 3}
   ResourceRates:
   - Type: 0
     Rate: 1
+  MasterBuildingConstraint: 0
   UpgradeConstraints: []
   UpgradePrices: []

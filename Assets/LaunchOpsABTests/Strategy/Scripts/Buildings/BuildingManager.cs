@@ -17,6 +17,26 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    public int GetMaxAllowedBuildingLevel(BuildingDefinitionSO building)
+    {
+        if(building.BuildingType == BuildingType.Master)
+        {
+            return BuildingGlobalConfig.MasterBuildingUpgradePrices.Count;
+        }
+        else if(building.BuildingType == BuildingType.Main)
+        {
+            return Mathf.Min(MasterBuilding.Level,building.UpgradePrices.Count ==0? BuildingGlobalConfig.MainBuildingUpgradePrices.Count: building.UpgradePrices.Count);
+        }
+        else
+        {
+            return BuildingGlobalConfig.SubUpgradePrices.Count;
+        }
+    }
+    internal bool IsRestricted(BuildingDefinitionSO data)
+    {
+        return data.Level>GetMaxAllowedBuildingLevel(data);
+    }
+
     public void Awake()
     {
         if(_instance != null && _instance != this)
@@ -30,18 +50,27 @@ public class BuildingManager : MonoBehaviour
 
     private void RegisterBuildings()
     {
-        foreach(var building in Buildings)
+        foreach(var building in BuildingGlobalConfig.AllBuildings)
         {
             StrategyDataManager.RegisterBuilding(building);
-            foreach(var subBuilding in building.UpgradeConstraints)
-            {
-                StrategyDataManager.RegisterBuilding(subBuilding.BuildingDefinition);
-            }
+            
         }
     }
     public BuildingGlobalConfig BuildingGlobalConfig;
-    public List<BuildingDefinitionSO> Buildings = new List<BuildingDefinitionSO>();
+
+    public BuildingDefinitionSO MasterBuilding => BuildingGlobalConfig.MasterBuilding;
+    public List<BuildingDefinitionSO> MainBuildings =>BuildingGlobalConfig.MainBuildings;
+    public List<BuildingDefinitionSO> SubBuildings => BuildingGlobalConfig.SubBuildings;
+
     public Action<BuildingDefinitionSO> OnBuildingUpgraded;
+
+    private List<BuildingController> BuildingControllers = new List<BuildingController>();
+
+    public void RegisterBuildingController(BuildingController controller)
+    {
+        BuildingControllers.Add(controller);
+    }
+
 
     public BuildingDefinitionSO CurrentlySelectedBuilding;
     public int GetSubBuildingUpgradePercentage(BuildingDefinitionSO main, BuildingDefinitionSO sub)
@@ -66,10 +95,9 @@ public class BuildingManager : MonoBehaviour
             StrategyDataManager.Spend(price);
             StrategyDataManager.UpgradeBuildingLevel(building.ID);
             OnBuildingUpgraded?.Invoke(building);
-            if(building.BuildingType == BuildingType.Main)
+            if(building.BuildingType != BuildingType.Sub)
             {
-                StrategyUIManager.Instance.BuildingStatusView.Fill(building);
-                StrategyUIManager.Instance.BuildingStatusView.Show();
+               SelectBuilding(building);
             }
             
         }
@@ -78,15 +106,15 @@ public class BuildingManager : MonoBehaviour
     internal bool IsMaxedOut(BuildingDefinitionSO building)
     {
         int level = building.Level;
-        if (level < building.UpgradePrices.Count)
+        if (building.BuildingType == BuildingType.Master && building.UpgradePrices.Count > 0 ? building.UpgradePrices.Count > level : BuildingGlobalConfig.MasterBuildingUpgradePrices.Count > level)
         {
             return false;
         }
-        else if (building.BuildingType == BuildingType.Main && BuildingGlobalConfig.UpgradePrices.Count>level)
+        else if (building.BuildingType == BuildingType.Main && building.UpgradePrices.Count>0? building.UpgradePrices.Count>level:BuildingGlobalConfig.MainBuildingUpgradePrices.Count>level)
         {
             return false;
         }
-        else if (building.BuildingType == BuildingType.Sub && BuildingGlobalConfig.SubUpgradePrices.Count > level)
+        else if (building.BuildingType == BuildingType.Sub && building.UpgradePrices.Count > 0 ? building.UpgradePrices.Count > level : BuildingGlobalConfig.SubUpgradePrices.Count > level)
         {
             return false;
         }
@@ -102,7 +130,7 @@ public class BuildingManager : MonoBehaviour
         }
         else if(building.BuildingType == BuildingType.Main)
         {
-            return BuildingGlobalConfig.UpgradePrices[level].Prices;
+            return BuildingGlobalConfig.MainBuildingUpgradePrices[level].Prices;
         }
         else
         {
@@ -115,6 +143,22 @@ public class BuildingManager : MonoBehaviour
     {
         int requiredLevel = 0;
         int acquiredLevel = 0;
+
+        if(building.BuildingType == BuildingType.Master)
+        {
+            foreach(var m in BuildingGlobalConfig.MainBuildings)
+            {
+                if (m.MasterBuildingConstraint >= building.Level)
+                {
+                    requiredLevel += building.Level;
+                    acquiredLevel += m.Level;
+                }
+            }
+
+            return (int)(((float)acquiredLevel / (float)requiredLevel) * 100f);
+        }
+
+
         int numberOfSubBuildings = building.UpgradeConstraints.Count;
 
         foreach (var constraint in building.UpgradeConstraints)
@@ -172,7 +216,11 @@ public class BuildingManager : MonoBehaviour
         CurrentlySelectedBuilding = buildingDefinition;
         if (buildingDefinition != null)
         {
-
+            foreach(var cont in BuildingControllers)
+            {
+                if(cont.BuildingDefinition == buildingDefinition)
+                    StrategyMapCameraControls.Instance.SetCamera(cont.BuildingCamera);
+            }
             StrategyUIManager.Instance.BuildingStatusView.Fill(buildingDefinition);
             StrategyUIManager.Instance.BuildingStatusView.Show();
         }
@@ -181,6 +229,8 @@ public class BuildingManager : MonoBehaviour
             StrategyMapCameraControls.Instance.UnselectBuilding();
         }
     }
+
+   
 }
 [Serializable]
 public class ResourceAmount

@@ -16,7 +16,7 @@ public class TestScreen : MonoBehaviour
 
     public void Init()
     {
-        foreach(var building in BuildingManager.Instance.Buildings)
+        foreach(var building in BuildingManager.Instance.MainBuildings)
         {
             var button = Instantiate(TestBuildingButtonPrefab, TestBuildingButtonParent);
             button.Fill(building,OnBuildingSelected);

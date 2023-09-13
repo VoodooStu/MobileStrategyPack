@@ -10,8 +10,10 @@ public enum BuildingClass
 
 public enum BuildingType
 {
-    Main,
-    Sub
+    Master=0,
+    Main=1,
+    Sub=2,
+    
 }
 [Serializable]
 public class BuildingUpgradeConstraint
@@ -28,9 +30,10 @@ public class BuildingDefinitionSO : ScriptableObject
     public BuildingType BuildingType;
     public string BuildingName;
     public string BuildingDescription;
-    public int MaxLevel;
+    public int MaxLevel => BuildingManager.Instance.GetMaxAllowedBuildingLevel(this);
     public Sprite Icon;
     public List<ResourceRate> ResourceRates;
+    public int MasterBuildingConstraint;
     public List<BuildingUpgradeConstraint> UpgradeConstraints;
     public List<ResourceAmountGroup> UpgradePrices = new List<ResourceAmountGroup>();
     public int Level => StrategyDataManager.GetBuildingLevel(ID);

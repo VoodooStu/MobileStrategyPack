@@ -115,7 +115,7 @@ public class ResourceManager : MonoBehaviour
     }
     private void CalculateResources( ref Dictionary<ResourceType, float> resources, int numberOfSeconds)
     {
-        CalculateResources(BuildingManager.Instance.Buildings, ref resources, numberOfSeconds);
+        CalculateResources(BuildingManager.Instance.MainBuildings, ref resources, numberOfSeconds);
        
     }
 

@@ -37,6 +37,7 @@ public class BuildingStatusView : MonoBehaviour
     public TextMeshProUGUI UpgradeButtonText;
     public Image UpgradeResorceIcon;
     public GameObject MaxedImage;
+    public GameObject UpgradeMasterIcon;
 
     private void Awake()
     {
@@ -69,29 +70,39 @@ public class BuildingStatusView : MonoBehaviour
             Destroy(SubBuildingViews[0].gameObject);
             SubBuildingViews.RemoveAt(0);
         }
-       
-        SelectSubBuilding(Data.UpgradeConstraints[0].BuildingDefinition);
-        foreach (var building in Data.UpgradeConstraints)
+        if (Data.UpgradeConstraints.Count > 0)
         {
-            if (building.StartLevel <= Data.Level)
+            SelectSubBuilding(Data.UpgradeConstraints[0].BuildingDefinition);
+            foreach (var building in Data.UpgradeConstraints)
             {
-                SubBuildingView view = Instantiate(SubBuildingPrefab, SubBuildingContainer);
-                SubBuildingViews.Add(view);
-                view.Fill(building, SelectSubBuilding, building.BuildingDefinition == SubBuildingData);
-              
-            }
-          
-        }
-        bool isMaxedOut = BuildingManager.Instance.IsMaxedOut(Data);
+                if (building.StartLevel <= Data.Level)
+                {
+                    SubBuildingView view = Instantiate(SubBuildingPrefab, SubBuildingContainer);
+                    SubBuildingViews.Add(view);
+                    view.Fill(building, SelectSubBuilding, building.BuildingDefinition == SubBuildingData);
 
+                }
+
+            }
+        }
+      
+        bool isMaxedOut = BuildingManager.Instance.IsMaxedOut(Data);
+        bool isRestricted = BuildingManager.Instance.IsRestricted(Data);
+
+        MainBuildingUpgradeButton.gameObject.SetActive(false);
+        UpgradeMasterIcon.SetActive(false);
+        MaxedImage.SetActive(false);
         if (isMaxedOut)
         {
-            MainBuildingUpgradeButton.gameObject.SetActive(false);
             MaxedImage.SetActive(true);
+        }
+        else if (isRestricted)
+        {
+            UpgradeMasterIcon.SetActive(true);
         }
         else
         {
-            MaxedImage.SetActive(false);
+           
             bool canUpgradeMain = BuildingManager.Instance.CanUpgradeMainBuilding(Data);
             int UpgradeProgress = BuildingManager.Instance.GetMainBuildingUpgradePercentage(Data);
             MainBuildingUpgradeProgressText.text = UpgradeProgress + "%";
@@ -107,6 +118,8 @@ public class BuildingStatusView : MonoBehaviour
 
     public void SelectSubBuilding(BuildingDefinitionSO building)
     {
+        if (building == null)
+            return;
         SubBuildingData = building;
         SubBuildingTitle.text = building.BuildingName;
         BuildingDescription.text = building.BuildingDescription;

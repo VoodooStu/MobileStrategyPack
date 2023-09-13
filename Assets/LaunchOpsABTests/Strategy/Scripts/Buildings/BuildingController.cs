@@ -12,10 +12,12 @@ public class BuildingController : MonoBehaviour
     public List<BuildingController> SubBuildings; 
     private void Start()
     {
+        BuildingManager.Instance.RegisterBuildingController(this);
         if(BuildingCamera!=null)
             BuildingCamera.Priority = -10;
         SetLevel(BuildingDefinition.Level, false);
         BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
+        this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
     }
     private void OnDestroy()
     {
@@ -23,6 +25,8 @@ public class BuildingController : MonoBehaviour
     }
     private void OnBuildingLevelUp(BuildingDefinitionSO building)
     {
+        this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <=BuildingManager.Instance.MasterBuilding.Level);
+
         if(building == BuildingDefinition)
         {
             SetLevel(building.Level, true);

@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 public class StrategyMapCameraControls : MonoBehaviour
 {
     public static StrategyMapCameraControls Instance =>instance;
@@ -46,13 +48,18 @@ public class StrategyMapCameraControls : MonoBehaviour
         CurrentZoom = Mathf.Clamp(CurrentZoom + (direction*ZoomSpeed), ZoomRestraints.x, ZoomRestraints.y);
     }
 
-    private void SetCamera(CinemachineVirtualCamera camera)
+    public void SetCamera(CinemachineVirtualCamera camera)
     {
         _currentVCam.Priority =- 10;
         if(camera == _defaultVCam)
         {
             camera.transform.position = _currentVCam.transform.position;
         }
+        if(camera!= _defaultVCam)
+        {
+            CurrentZoom = camera.m_Lens.FieldOfView;
+        }
+       
        
         _currentVCam = camera;
         _currentVCam.Priority = 10;
@@ -103,7 +110,7 @@ public class StrategyMapCameraControls : MonoBehaviour
                 _currentVCam.transform.Translate(delta *CameraSpeed);
                 lastInputPosition = Input.mousePosition;
             }
-            if(Input.GetMouseButtonUp(0) && Time.time - onMouseDown < 0.2f)
+            if(Input.GetMouseButtonUp(0) && Time.time - onMouseDown < 0.2f&& !EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -115,8 +122,8 @@ public class StrategyMapCameraControls : MonoBehaviour
                         _currentBuilding = building;
                         _currentBuilding.Select();
                         BuildingManager.Instance.SelectBuilding(building.BuildingDefinition);
-                        SetCamera(building.BuildingCamera);
-                        CurrentZoom = _currentVCam.m_Lens.FieldOfView;
+                        
+                     
                     }else if(building != null && building.BuildingDefinition.Level == 0)
                     {
                         StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition, BuildingManager.Instance.TryUpgradeBuilding);

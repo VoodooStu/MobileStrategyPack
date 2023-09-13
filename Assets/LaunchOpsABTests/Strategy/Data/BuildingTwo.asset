@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23f991abb97c1f340a2fdeabb7c9fc47, type: 3}
-  m_Name: BuildingOne
+  m_Name: BuildingTwo
   m_EditorClassIdentifier: 
   BuildingClass: 0
   BuildingType: 1
-  BuildingName: Building One
+  BuildingName: Building Two
   BuildingDescription: This is a descrtiption
   Icon: {fileID: 21300000, guid: e92527f6d0fe45342ab542b47346d45f, type: 3}
   ResourceRates: []
-  MasterBuildingConstraint: 1
+  MasterBuildingConstraint: 3
   UpgradeConstraints:
   - StartLevel: 0
-    BuildingDefinition: {fileID: 11400000, guid: e13faa3fbb4b2c947a0635396fd822a7, type: 2}
+    BuildingDefinition: {fileID: 11400000, guid: 0f265bc008aa4be42aa00aa2a8607b94, type: 2}
   - StartLevel: 0
-    BuildingDefinition: {fileID: 11400000, guid: b3f81c9bfc6298f4386c1111257939ae, type: 2}
+    BuildingDefinition: {fileID: 11400000, guid: 891dc6fece0be3844bfa217dfc70c92a, type: 2}
   - StartLevel: 5
-    BuildingDefinition: {fileID: 11400000, guid: 620b42c58672b714086c5f40e5a55333, type: 2}
-  - StartLevel: 9
-    BuildingDefinition: {fileID: 11400000, guid: d6330b3ea87d4bf4790f7190387a4c86, type: 2}
+    BuildingDefinition: {fileID: 11400000, guid: 467f92693f50ee346904569f40a78ee7, type: 2}
   UpgradePrices: []

@@ -14,37 +14,80 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxBuildingLevel: 10
   UpgradeRestrictionLevel: 4
-  UpgradePrices:
+  MasterBuilding: {fileID: 11400000, guid: fca3512b5f3773c4fa28000b7506d240, type: 2}
+  MasterBuildingUpgradePrices:
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  - Prices:
+    - type: 0
+      amount: 200
+  MainBuildings:
+  - {fileID: 11400000, guid: 55aedf7e674e98b4b8d35e8b224ee927, type: 2}
+  - {fileID: 11400000, guid: 3e94acabacdcf4449a75065b00bd1909, type: 2}
+  MainBuildingUpgradePrices:
   - Prices:
     - type: 0
       amount: 100
   - Prices:
     - type: 0
-      amount: 110
+      amount: 100
   - Prices:
     - type: 0
-      amount: 120
+      amount: 100
   - Prices:
     - type: 0
-      amount: 130
+      amount: 100
   - Prices:
     - type: 0
-      amount: 140
+      amount: 100
   - Prices:
     - type: 0
-      amount: 160
+      amount: 100
   - Prices:
     - type: 0
-      amount: 170
+      amount: 100
   - Prices:
     - type: 0
-      amount: 180
+      amount: 100
   - Prices:
     - type: 0
-      amount: 190
+      amount: 100
   - Prices:
     - type: 0
-      amount: 200
+      amount: 100
+  SubBuildings:
+  - {fileID: 11400000, guid: d6330b3ea87d4bf4790f7190387a4c86, type: 2}
+  - {fileID: 11400000, guid: e13faa3fbb4b2c947a0635396fd822a7, type: 2}
+  - {fileID: 11400000, guid: 620b42c58672b714086c5f40e5a55333, type: 2}
+  - {fileID: 11400000, guid: b3f81c9bfc6298f4386c1111257939ae, type: 2}
+  - {fileID: 11400000, guid: 0f265bc008aa4be42aa00aa2a8607b94, type: 2}
+  - {fileID: 11400000, guid: 467f92693f50ee346904569f40a78ee7, type: 2}
+  - {fileID: 11400000, guid: 891dc6fece0be3844bfa217dfc70c92a, type: 2}
   SubUpgradePrices:
   - Prices:
     - type: 1
