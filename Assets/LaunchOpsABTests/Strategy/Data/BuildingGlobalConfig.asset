@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7c4a2ebc17485468eedd8c69269a1f, type: 3}
+  m_Name: BuildingGlobalConfig
+  m_EditorClassIdentifier: 
+  MaxBuildingLevel: 10
+  UpgradeRestrictionLevel: 4
+  UpgradePrices:
+  - Prices:
+    - type: 0
+      amount: 100
+  - Prices:
+    - type: 0
+      amount: 110
+  - Prices:
+    - type: 0
+      amount: 120
+  - Prices:
+    - type: 0
+      amount: 130
+  - Prices:
+    - type: 0
+      amount: 140
+  - Prices:
+    - type: 0
+      amount: 160
+  - Prices:
+    - type: 0
+      amount: 170
+  - Prices:
+    - type: 0
+      amount: 180
+  - Prices:
+    - type: 0
+      amount: 190
+  - Prices:
+    - type: 0
+      amount: 200
+  SubUpgradePrices:
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
+  - Prices:
+    - type: 1
+      amount: 10
