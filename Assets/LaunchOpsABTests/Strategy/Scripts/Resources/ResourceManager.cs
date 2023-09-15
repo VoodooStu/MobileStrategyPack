@@ -7,6 +7,7 @@ using UnityEngine;
 
 public enum ResourceType
 {
+    Time = -1,
     Soft = 0,
     Wood = 1,
     Special =2

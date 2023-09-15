@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static Cinemachine.DocumentationSortingAttribute;
 
@@ -10,24 +11,43 @@ public class BuildingController : MonoBehaviour
     public Animator BuildingAnimator;
     public Cinemachine.CinemachineVirtualCamera BuildingCamera;
     public List<BuildingController> SubBuildings; 
+    public TextMeshProUGUI BuildingName;
     private void Start()
     {
         BuildingManager.Instance.RegisterBuildingController(this);
-        if(BuildingCamera!=null)
+        if (BuildingCamera != null)
+        {
             BuildingCamera.Priority = -10;
+            BuildingCamera.gameObject.SetActive(false);
+        }
+        if (BuildingName != null)
+        {
+            BuildingName.text = BuildingDefinition.BuildingName;
+        }
         SetLevel(BuildingDefinition.Level, false);
         BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
-        this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+        CheckMasterBuildingConstraint();
     }
     private void OnDestroy()
     {
-        BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingLevelUp;
+        if(BuildingManager.Instance!=null)
+            BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingLevelUp;
     }
+
+    public void CheckMasterBuildingConstraint()
+    {
+        if (BuildingDefinition.BuildingType == BuildingType.Main)
+        {
+            this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+
+        }
+    }
+
     private void OnBuildingLevelUp(BuildingDefinitionSO building)
     {
-        this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <=BuildingManager.Instance.MasterBuilding.Level);
+        CheckMasterBuildingConstraint();
 
-        if(building == BuildingDefinition)
+        if (building == BuildingDefinition)
         {
             SetLevel(building.Level, true);
         }

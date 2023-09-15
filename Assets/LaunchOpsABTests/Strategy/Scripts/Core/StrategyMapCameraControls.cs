@@ -10,9 +10,16 @@ using UnityEngine.EventSystems;
 public class StrategyMapCameraControls : MonoBehaviour
 {
     public static StrategyMapCameraControls Instance =>instance;
+
+    public Action OnCameraMove;
+    public Action OnCameraStopMove;
+
     private static StrategyMapCameraControls instance;
     public LayerMask BuildingLayer;
     public Vector2 ZoomRestraints;
+    public Vector2 CameraXRestraints;
+    public Vector2 CameraZRestraints;
+
     public float CurrentZoom;
     public float ZoomSpeed;
     public float CameraSpeed;
@@ -59,9 +66,10 @@ public class StrategyMapCameraControls : MonoBehaviour
         {
             CurrentZoom = camera.m_Lens.FieldOfView;
         }
-       
-       
-        _currentVCam = camera;
+
+        _currentVCam.gameObject.SetActive(false);
+         _currentVCam = camera;
+        _currentVCam.gameObject.SetActive(true);
         _currentVCam.Priority = 10;
 
     }
@@ -104,14 +112,24 @@ public class StrategyMapCameraControls : MonoBehaviour
             }
             if (Input.GetMouseButton(0))
             {
+                OnCameraMove?.Invoke();
                 Vector2 delta = lastInputPosition - (Vector2)Input.mousePosition;
                 delta.x/= Screen.width;
                 delta.y /= Screen.height;
                 _currentVCam.transform.Translate(delta *CameraSpeed);
+                var posiition = _currentVCam.transform.position;
+                posiition.x = Mathf.Clamp(posiition.x, CameraXRestraints.x, CameraXRestraints.y);
+                posiition.z = Mathf.Clamp(posiition.z, CameraZRestraints.x, CameraZRestraints.y);
+                _currentVCam.transform.position = posiition;
                 lastInputPosition = Input.mousePosition;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnCameraStopMove?.Invoke();
             }
             if(Input.GetMouseButtonUp(0) && Time.time - onMouseDown < 0.2f&& !EventSystem.current.IsPointerOverGameObject())
             {
+                OnCameraStopMove?.Invoke();
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit, BuildingLayer))

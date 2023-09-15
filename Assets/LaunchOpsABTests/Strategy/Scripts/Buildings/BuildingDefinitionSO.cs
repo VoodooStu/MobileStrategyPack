@@ -45,4 +45,15 @@ public class BuildingDefinitionSO : ScriptableObject
     {
         return UpgradeConstraints.Find(x => x.BuildingDefinition == sub).StartLevel;
     }
+
+    public DateTime LastUpgradeTime
+    {
+        get => StrategyDataManager.GetBuildingLastUpgradeTime(ID); set => StrategyDataManager.SetBuildingLastUpgradeTime(ID, value);
+    }
+
+    public bool ShouldUpgrade
+    {
+        get => StrategyDataManager.GetBuildingShouldUpgrade(ID); set => StrategyDataManager.SetBuildingShouldUpgrade(ID, value);
+    }
+
 }

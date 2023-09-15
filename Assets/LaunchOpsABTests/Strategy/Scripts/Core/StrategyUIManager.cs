@@ -7,6 +7,9 @@ public class StrategyUIManager : MonoBehaviour
     public BuildingStatusView BuildingStatusView;
     public BuildBuildingPopUp BuildBuildingPopUp;
     public ResourceCollectView ResourceCollectView;
+    public InsufficentResourcesView InsufficentResourcesView;
+    public BuildingTimerPanel UpgradeSlotsView;
+
     private static StrategyUIManager _instance;
     public static StrategyUIManager Instance { get {
             return _instance;

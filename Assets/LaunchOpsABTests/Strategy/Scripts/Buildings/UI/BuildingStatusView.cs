@@ -32,13 +32,15 @@ public class BuildingStatusView : MonoBehaviour
     
     public TextMeshProUGUI MainBuildingUpgradeProgressText;
     public Image MainBuildingUpgradeProgressFill;
+    public GameObject MaxedImage;
+    public GameObject UpgradeMasterIcon;
     [Header("Upgrade Button")]
     public Button UpgradeButton;
     public TextMeshProUGUI UpgradeButtonText;
     public Image UpgradeResorceIcon;
-    public GameObject MaxedImage;
-    public GameObject UpgradeMasterIcon;
-
+    [Header("Building Timer Area")]
+    public Transform BuildingTimerParent;
+    public BuildingTimer BuildingTimerPrefab;
     private void Awake()
     {
         Hide();
@@ -70,8 +72,14 @@ public class BuildingStatusView : MonoBehaviour
             Destroy(SubBuildingViews[0].gameObject);
             SubBuildingViews.RemoveAt(0);
         }
+        while (ProductionBarViews.Count > 0)
+        {
+            Destroy(ProductionBarViews[0].gameObject);
+            ProductionBarViews.RemoveAt(0);
+        }
         if (Data.UpgradeConstraints.Count > 0)
         {
+            UpgradeButton.gameObject.SetActive(true);
             SelectSubBuilding(Data.UpgradeConstraints[0].BuildingDefinition);
             foreach (var building in Data.UpgradeConstraints)
             {
@@ -85,6 +93,26 @@ public class BuildingStatusView : MonoBehaviour
 
             }
         }
+        else
+        {
+            SubBuildingTitle.text = _data.BuildingName;
+            BuildingDescription.text = _data.BuildingDescription;
+            SubBuildingIcon.sprite = _data.Icon;
+            UpgradeButton.gameObject.SetActive(false);
+        }
+
+        if (BuildingManager.Instance.IsUpgrading(Data))
+        {
+            SubBuildingContainer.gameObject.SetActive(false);
+            BuildingTimerParent.gameObject.SetActive(true);
+            BuildingTimerPrefab.Fill(Data);
+        }
+        else
+        {
+            SubBuildingContainer.gameObject.SetActive(true);
+            BuildingTimerParent.gameObject.SetActive(false);
+        }
+
       
         bool isMaxedOut = BuildingManager.Instance.IsMaxedOut(Data);
         bool isRestricted = BuildingManager.Instance.IsRestricted(Data);
@@ -96,22 +124,26 @@ public class BuildingStatusView : MonoBehaviour
         {
             MaxedImage.SetActive(true);
         }
-        else if (isRestricted)
-        {
-            UpgradeMasterIcon.SetActive(true);
-        }
         else
         {
            
             bool canUpgradeMain = BuildingManager.Instance.CanUpgradeMainBuilding(Data);
             int UpgradeProgress = BuildingManager.Instance.GetMainBuildingUpgradePercentage(Data);
-            MainBuildingUpgradeProgressText.text = UpgradeProgress + "%";
-            MainBuildingUpgradeProgressFill.fillAmount = (float)UpgradeProgress / 100f;
-            MainBuildingUpgradeButton.gameObject.SetActive(canUpgradeMain);
-            MainBuildingUpgradeButton.interactable = StrategyDataManager.CanAfford(BuildingManager.Instance.GetUpgradePrice(Data));
-            ResourceAmount amount = BuildingManager.Instance.GetUpgradePrice(Data)[0];
+            if(canUpgradeMain && isRestricted)
+            {
+                UpgradeMasterIcon.SetActive(true);
+            }
+            else
+            {
+                MainBuildingUpgradeProgressText.text = UpgradeProgress + "%";
+                MainBuildingUpgradeProgressFill.fillAmount = (float)UpgradeProgress / 100f;
+                MainBuildingUpgradeButton.gameObject.SetActive(canUpgradeMain);
+                MainBuildingUpgradeButton.interactable = StrategyDataManager.CanAfford(BuildingManager.Instance.GetUpgradePrice(Data));
+                ResourceAmount amount = BuildingManager.Instance.GetUpgradePrice(Data)[0];
 
-            MainBuildingUpgradeButtonText.text = string.Format("<sprite={0}>", (int)amount.type) + amount.amount.ToReadableString() + "/" + StrategyDataManager.GetResource(amount.type);
+                MainBuildingUpgradeButtonText.text = string.Format("<sprite={0}>", (int)amount.type) + amount.amount.ToReadableString() + "/" + StrategyDataManager.GetResource(amount.type);
+            }
+           
         }
 
     }
@@ -173,7 +205,7 @@ public class BuildingStatusView : MonoBehaviour
     {
         StrategyMapCameraControls.Instance.SetDefaultCamera();
         BuildingManager.Instance.SelectBuilding(null);
-        
+        SubBuildingData = null;
         Hide();
     }
 

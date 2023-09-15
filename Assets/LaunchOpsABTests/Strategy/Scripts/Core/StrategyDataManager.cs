@@ -102,5 +102,35 @@ public static class StrategyDataManager
 
         }
     }
+
+    internal static DateTime GetBuildingLastUpgradeTime(string iD)
+    {
+        if(!PlayerPrefs.HasKey("VD_Building_" + iD + "_LastUpgradeTime"))
+        {
+            return DateTime.MinValue;
+        }
+        long date = 0;
+        if(long.TryParse(PlayerPrefs.GetString("VD_Building_" + iD + "_LastUpgradeTime"),out date)){
+            return DateTime.FromFileTimeUtc(date);
+        }
+
+
+        return DateTime.MinValue;
+    }
+
+    internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
+    {
+        PlayerPrefs.SetString("VD_Building_" + iD + "_LastUpgradeTime", value.ToFileTimeUtc().ToString());
+    }
+
+    internal static bool GetBuildingShouldUpgrade(string iD)
+    {
+        return PlayerPrefs.GetInt("VD_Building_"+iD + "_ShouldUpgrade", 0) == 1;
+    }
+
+    internal static void SetBuildingShouldUpgrade(string iD, bool value)
+    {
+        PlayerPrefs.SetInt("VD_Building_" + iD + "_ShouldUpgrade", value?1:0);
+    }
 }
 

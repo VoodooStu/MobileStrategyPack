@@ -239,3 +239,4 @@ MonoBehaviour:
   - Prices:
     - type: 1
       amount: 10
+  DefaultUpgradeTimer: 30

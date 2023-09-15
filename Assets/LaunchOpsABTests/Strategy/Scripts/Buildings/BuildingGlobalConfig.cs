@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,12 @@ public class BuildingGlobalConfig : ScriptableObject
 {
     public int MaxBuildingLevel;
     public int UpgradeRestrictionLevel;
+    public int DefaultUpgradeSlots = 1;
 
+    public int GetUpgradeSlots()
+    {
+        return DefaultUpgradeSlots;
+    }
 
     public BuildingDefinitionSO MasterBuilding;
     public List<ResourceAmountGroup> MasterBuildingUpgradePrices = new List<ResourceAmountGroup>();
@@ -28,4 +34,26 @@ public class BuildingGlobalConfig : ScriptableObject
     
     }
 
+    public int DefaultUpgradeTimer = 10;
+
+    internal ResourceAmountGroup GetUpgradeCost(BuildingDefinitionSO building)
+    {
+        if (building.UpgradePrices.Count != 0)
+        {
+            return building.UpgradePrices[building.Level];
+        }
+        if(building.BuildingType == BuildingType.Master)
+        {
+            return MasterBuildingUpgradePrices[building.Level]; 
+
+        }
+        else if(building.BuildingType == BuildingType.Main)
+        {
+            return MainBuildingUpgradePrices[building.Level];
+        }
+        else
+        {
+            return SubUpgradePrices[building.Level];
+        }
+    }
 }
