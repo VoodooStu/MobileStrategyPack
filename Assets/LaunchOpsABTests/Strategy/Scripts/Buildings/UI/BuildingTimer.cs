@@ -14,7 +14,7 @@ public class BuildingTimer : MonoBehaviour
 
     public void CancelBuild()
     {
-
+        BuildingManager.Instance.CancelUpgrade(Data);
     }
     DateTime upgradeStarted;
     DateTime upgradeFinishes;

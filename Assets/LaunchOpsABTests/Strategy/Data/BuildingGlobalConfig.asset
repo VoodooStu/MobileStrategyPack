@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxBuildingLevel: 10
   UpgradeRestrictionLevel: 4
+  DefaultUpgradeSlots: 1
   MasterBuilding: {fileID: 11400000, guid: fca3512b5f3773c4fa28000b7506d240, type: 2}
   MasterBuildingUpgradePrices:
   - Prices:
@@ -239,4 +240,4 @@ MonoBehaviour:
   - Prices:
     - type: 1
       amount: 10
-  DefaultUpgradeTimer: 30
+  DefaultUpgradeTimer: 5

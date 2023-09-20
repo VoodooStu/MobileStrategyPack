@@ -46,6 +46,18 @@ public class BuildingDefinitionSO : ScriptableObject
         return UpgradeConstraints.Find(x => x.BuildingDefinition == sub).StartLevel;
     }
 
+    internal bool HasConstraint(BuildingDefinitionSO buildingDefinition)
+    {
+        foreach(var constraint in UpgradeConstraints)
+        {
+            if(constraint.BuildingDefinition == buildingDefinition)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public DateTime LastUpgradeTime
     {
         get => StrategyDataManager.GetBuildingLastUpgradeTime(ID); set => StrategyDataManager.SetBuildingLastUpgradeTime(ID, value);

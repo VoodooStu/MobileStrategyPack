@@ -11,11 +11,11 @@ public class BuildingStatusView : MonoBehaviour
 
     public TextMeshProUGUI MainBuildingTitle;
 
-  
+
     public TextMeshProUGUI SubBuildingTitle;
     public TextMeshProUGUI BuildingDescription;
     public Image UpgradeProgressFill;
-   
+
     public Image SubBuildingIcon;
     public ProductionBar ProductionBarPrefab;
     public Transform ProductionBarContainer;
@@ -29,11 +29,12 @@ public class BuildingStatusView : MonoBehaviour
     [Header("Main Building Upgrade Area")]
     public Button MainBuildingUpgradeButton;
     public TextMeshProUGUI MainBuildingUpgradeButtonText;
-    
+
     public TextMeshProUGUI MainBuildingUpgradeProgressText;
     public Image MainBuildingUpgradeProgressFill;
     public GameObject MaxedImage;
     public GameObject UpgradeMasterIcon;
+    public GameObject UpgradingImage;
     [Header("Upgrade Button")]
     public Button UpgradeButton;
     public TextMeshProUGUI UpgradeButtonText;
@@ -48,11 +49,19 @@ public class BuildingStatusView : MonoBehaviour
     private void Start()
     {
         StrategyDataManager.OnBuildingLevelChanged += OnBuildingLevelChanged;
-      
+        BuildingManager.Instance.OnBuildingBeginsUpgrade += OnBuildingBeginsUpgrade;
+
     }
+
+    private void OnBuildingBeginsUpgrade(BuildingDefinitionSO building)
+    {
+        Fill(Data);
+    }
+
     private void OnDestroy()
     {
         StrategyDataManager.OnBuildingLevelChanged -= OnBuildingLevelChanged;
+        BuildingManager.Instance.OnBuildingBeginsUpgrade -= OnBuildingBeginsUpgrade;
     }
 
     private void OnBuildingLevelChanged()
@@ -66,8 +75,8 @@ public class BuildingStatusView : MonoBehaviour
     {
 
         Data = _data;
-        MainBuildingTitle.text = _data.BuildingName + " Lv."+_data.Level;
-        while(SubBuildingViews.Count > 0)
+        MainBuildingTitle.text = _data.BuildingName + " Lv." + _data.Level;
+        while (SubBuildingViews.Count > 0)
         {
             Destroy(SubBuildingViews[0].gameObject);
             SubBuildingViews.RemoveAt(0);
@@ -95,25 +104,32 @@ public class BuildingStatusView : MonoBehaviour
         }
         else
         {
-            SubBuildingTitle.text = _data.BuildingName;
-            BuildingDescription.text = _data.BuildingDescription;
-            SubBuildingIcon.sprite = _data.Icon;
+
+
+           SelectMainBuilding();
             UpgradeButton.gameObject.SetActive(false);
         }
 
         if (BuildingManager.Instance.IsUpgrading(Data))
         {
+            SelectMainBuilding();
             SubBuildingContainer.gameObject.SetActive(false);
             BuildingTimerParent.gameObject.SetActive(true);
             BuildingTimerPrefab.Fill(Data);
+            UpgradingImage.gameObject.SetActive(true);
+            UpgradeButton.gameObject.SetActive(false);
+            MainBuildingUpgradeProgressText.gameObject.SetActive(false);
         }
         else
         {
             SubBuildingContainer.gameObject.SetActive(true);
             BuildingTimerParent.gameObject.SetActive(false);
+            UpgradingImage.gameObject.SetActive(false);
+            MainBuildingUpgradeProgressText.gameObject.SetActive(true);
+
         }
 
-      
+
         bool isMaxedOut = BuildingManager.Instance.IsMaxedOut(Data);
         bool isRestricted = BuildingManager.Instance.IsRestricted(Data);
 
@@ -126,10 +142,10 @@ public class BuildingStatusView : MonoBehaviour
         }
         else
         {
-           
+
             bool canUpgradeMain = BuildingManager.Instance.CanUpgradeMainBuilding(Data);
             int UpgradeProgress = BuildingManager.Instance.GetMainBuildingUpgradePercentage(Data);
-            if(canUpgradeMain && isRestricted)
+            if (canUpgradeMain && isRestricted)
             {
                 UpgradeMasterIcon.SetActive(true);
             }
@@ -143,7 +159,21 @@ public class BuildingStatusView : MonoBehaviour
 
                 MainBuildingUpgradeButtonText.text = string.Format("<sprite={0}>", (int)amount.type) + amount.amount.ToReadableString() + "/" + StrategyDataManager.GetResource(amount.type);
             }
-           
+
+        }
+
+    }
+
+    public void SelectMainBuilding()
+    {
+
+        SubBuildingTitle.text = Data.BuildingName;
+        BuildingDescription.text = Data.BuildingDescription;
+        SubBuildingIcon.sprite = Data.Icon;
+        while (ProductionBarViews.Count > 0)
+        {
+            Destroy(ProductionBarViews[0].gameObject);
+            ProductionBarViews.RemoveAt(0);
         }
 
     }

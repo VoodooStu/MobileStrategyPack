@@ -9,7 +9,9 @@ public class StrategyUIManager : MonoBehaviour
     public ResourceCollectView ResourceCollectView;
     public InsufficentResourcesView InsufficentResourcesView;
     public BuildingTimerPanel UpgradeSlotsView;
-
+    public MissionsView MissionsView;
+   
+    public SeasonCompletePopUp SeasonCompletePopUp;
     private static StrategyUIManager _instance;
     public static StrategyUIManager Instance { get {
             return _instance;

@@ -8,6 +8,11 @@ public static class StrategyDataManager
 {
     public static Dictionary<ResourceType, SavedFloat> Resources = new Dictionary<ResourceType, SavedFloat>();
     public static Action OnResourceChanged = null;
+    public static SavedInt ExtraBuildingSlots = new SavedInt("VD_BuildingSlots", 0, true, () =>
+    {
+        OnResourceChanged?.Invoke();
+    });
+
     public static void InitialiseResources()
     {
         foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
@@ -40,6 +45,7 @@ public static class StrategyDataManager
         // TODO Add analytics
     }
 
+   
     public static float GetResource(ResourceType type)
     {
         return Resources[type].Value;

@@ -14,7 +14,7 @@ public static partial class UsefulExtensions
     /// <param name="key"></param>
     /// <param name="defaultReturn"></param>
     /// <returns></returns>
-    internal static T GetClass<T>(string key, T defaultReturn)
+    public static T GetClass<T>(string key, T defaultReturn)
     {
         if (!PlayerPrefs.HasKey(key))
         {
@@ -36,7 +36,7 @@ public static partial class UsefulExtensions
     /// <param name="key"></param>
     /// <param name="defaultReturn"></param>
     /// <returns></returns>
-    internal static void SaveClass<T>(string key, T classToSave)
+    public static void SaveClass<T>(string key, T classToSave)
     {
         var saveString = Newtonsoft.Json.JsonConvert.SerializeObject(classToSave);
         PlayerPrefs.SetString(key, saveString);

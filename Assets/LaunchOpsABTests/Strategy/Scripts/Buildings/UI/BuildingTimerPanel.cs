@@ -9,6 +9,9 @@ public class BuildingTimerPanel : MonoBehaviour
     public BuildingTimer BuildingTimer;
     public Transform TimerContent;
     private List<BuildingTimer> Timers = new List<BuildingTimer>();
+
+    public GameObject PurchaseBuildSlotButton;
+
     Action OnClick;
 
     private void Awake()
@@ -20,7 +23,10 @@ public class BuildingTimerPanel : MonoBehaviour
     {
         OnClick = onClick;
         this.gameObject.SetActive(true);
+        
         Fill();
+        PurchaseBuildSlotButton.SetActive(StrategyDataManager.ExtraBuildingSlots < 1);
+        PurchaseBuildSlotButton.transform.SetAsLastSibling();
     }
 
     private void Fill()
@@ -37,6 +43,11 @@ public class BuildingTimerPanel : MonoBehaviour
             timer.Fill(building);
         }
         
+    }
+
+    public void PurchaseSecondBuilder()
+    {
+        StrategyIAPManager.Instance.PurchaseExtraBuilderSlot();
     }
 
     public void Close()

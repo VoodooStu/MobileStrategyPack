@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Hardware;
 using UnityEngine;
@@ -88,6 +89,7 @@ public class BuildingManager : MonoBehaviour
                 StrategyDataManager.UpgradeBuildingLevel(building.ID);
                 building.ShouldUpgrade = false;
                 i--;
+                OnBuildingUpgraded?.Invoke(building);
             }
         }
     }
@@ -103,7 +105,10 @@ public class BuildingManager : MonoBehaviour
     {
         int mainLevel = main.Level;
         int subLevel = sub.Level;
-
+        if(mainLevel == 0)
+        {
+            return 0;
+        }
         int minSubLevel = (mainLevel - 1) * BuildingManager.Instance.BuildingGlobalConfig.UpgradeRestrictionLevel;
         if(main.GetLevelRestriction(sub) == main.Level)
         {
@@ -135,6 +140,7 @@ public class BuildingManager : MonoBehaviour
                 building.LastUpgradeTime = DateTime.UtcNow;
                 OnBuildingBeginsUpgrade?.Invoke(building);
                 BuildingsBeingUpgraded.Add(building);
+                OnBuildingBeginsUpgrade?.Invoke(building);
             }
             else
             {
@@ -273,14 +279,30 @@ public class BuildingManager : MonoBehaviour
 
     internal void SelectBuilding(BuildingDefinitionSO buildingDefinition)
     {
-      
+        if(buildingDefinition!= null && buildingDefinition.BuildingType == BuildingType.Sub)
+        {
+            var building = FindParentBuilding(buildingDefinition);
+            if (building != null)
+            {
+                SelectBuilding(building);
+                StrategyUIManager.Instance.BuildingStatusView.SelectSubBuilding(buildingDefinition);
+
+            }
+            return;
+        }
         CurrentlySelectedBuilding = buildingDefinition;
         if (buildingDefinition != null)
         {
             foreach(var cont in BuildingControllers)
             {
                 if(cont.BuildingDefinition == buildingDefinition)
+                {
+                    cont.Select();
+                    
                     StrategyMapCameraControls.Instance.SetCamera(cont.BuildingCamera);
+                    StrategyMapCameraControls.Instance.SetSelected(cont);
+
+                }
             }
             StrategyUIManager.Instance.BuildingStatusView.Fill(buildingDefinition);
             StrategyUIManager.Instance.BuildingStatusView.Show();
@@ -291,12 +313,29 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
+    private BuildingDefinitionSO FindParentBuilding(BuildingDefinitionSO buildingDefinition)
+    {
+        foreach(var building in MainBuildings)
+        {
+            if (building.HasConstraint(buildingDefinition))
+            {
+                return building;
+            }
+            
+        }
+        return null;
+    }
+
     public bool IsUpgrading(BuildingDefinitionSO building)
     {
         ResourceAmountGroup group = BuildingGlobalConfig.GetUpgradeCost(building);
         DateTime lastUpgrade = building.LastUpgradeTime;
         int timeNeeded = BuildingGlobalConfig.DefaultUpgradeTimer;
         ResourceAmount amount = group.Prices.Find((u)=>u.type == ResourceType.Time);
+        if (!building.ShouldUpgrade)
+        {
+            return false;
+        }
         if (amount != null)
         {
               timeNeeded = (int)amount.amount;
@@ -325,6 +364,14 @@ public class BuildingManager : MonoBehaviour
         {
             return (int)price.amount;
         }
+    }
+
+    internal void CancelUpgrade(BuildingDefinitionSO data)
+    {
+        BuildingsBeingUpgraded.Remove(data);
+        data.ShouldUpgrade = false;
+      //  data.LastUpgradeTime = DateTime.MinValue;
+        OnBuildingBeginsUpgrade?.Invoke(data);
     }
 }
 [Serializable]

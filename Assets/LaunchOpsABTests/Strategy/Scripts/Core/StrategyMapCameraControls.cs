@@ -76,6 +76,7 @@ public class StrategyMapCameraControls : MonoBehaviour
     Vector2 lastInputPosition;
     float onMouseDown;
     BuildingController _currentBuilding;
+    bool cameraIsMoving = false;
     private void Update()
     {
         bool canZoom = _currentVCam == _defaultVCam;
@@ -98,8 +99,8 @@ public class StrategyMapCameraControls : MonoBehaviour
         }
 
         bool canSelect = BuildingManager.Instance.CurrentlySelectedBuilding == null;
-
-        if (canSelect)
+        bool isInputBlockedByUI = EventSystem.current.IsPointerOverGameObject();
+        if (canSelect && !isInputBlockedByUI)
         {
            
 
@@ -122,10 +123,16 @@ public class StrategyMapCameraControls : MonoBehaviour
                 posiition.z = Mathf.Clamp(posiition.z, CameraZRestraints.x, CameraZRestraints.y);
                 _currentVCam.transform.position = posiition;
                 lastInputPosition = Input.mousePosition;
+                cameraIsMoving = true;
             }
             if (Input.GetMouseButtonUp(0))
             {
-                OnCameraStopMove?.Invoke();
+                if (cameraIsMoving)
+                {
+                    cameraIsMoving = false;
+                    OnCameraStopMove?.Invoke();
+                }
+              
             }
             if(Input.GetMouseButtonUp(0) && Time.time - onMouseDown < 0.2f&& !EventSystem.current.IsPointerOverGameObject())
             {
@@ -135,7 +142,7 @@ public class StrategyMapCameraControls : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, BuildingLayer))
                 {
                     BuildingController building = hit.collider.GetComponentInParent<BuildingController>();
-                    if (building != null && building.BuildingDefinition.Level>0)
+                    if (building != null && (building.BuildingDefinition.Level>0 || BuildingManager.Instance.IsUpgrading(building.BuildingDefinition)))
                     {
                         _currentBuilding = building;
                         _currentBuilding.Select();
@@ -144,6 +151,7 @@ public class StrategyMapCameraControls : MonoBehaviour
                      
                     }else if(building != null && building.BuildingDefinition.Level == 0)
                     {
+                        _currentBuilding = building;
                         StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition, BuildingManager.Instance.TryUpgradeBuilding);
                         StrategyUIManager.Instance.BuildBuildingPopUp.Show();
                     }
@@ -152,7 +160,16 @@ public class StrategyMapCameraControls : MonoBehaviour
         }
         else
         {
-
+            if (cameraIsMoving)
+            {
+                cameraIsMoving = false;
+                OnCameraStopMove?.Invoke();
+            }
+        }
+        if (isInputBlockedByUI)
+        {
+            onMouseDown = Time.time;
+            lastInputPosition = Input.mousePosition;
         }
 
         
@@ -179,6 +196,17 @@ public class StrategyMapCameraControls : MonoBehaviour
             _currentBuilding = null;
         }
         
+    }
+
+    internal void SetSelected(BuildingController cont)
+    {
+        if (_currentBuilding != null)
+        {
+            _currentBuilding.UnSelect();
+            _currentBuilding = null;
+        }
+        _currentBuilding = cont;
+        _currentBuilding.Select();
     }
 
     private CinemachineVirtualCamera _currentVCam;
