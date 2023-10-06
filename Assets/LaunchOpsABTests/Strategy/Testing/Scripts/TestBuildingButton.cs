@@ -11,7 +11,7 @@ public class TestBuildingButton : MonoBehaviour
     public TextMeshProUGUI BuildingName;
     public void Fill(BuildingDefinitionSO _data,Action<BuildingDefinitionSO> onClick)
     {
-        BuildingName.text = _data.BuildingName;
+        BuildingName.text = _data.DisplayName;
         OnClick = onClick;
         Data = _data;
     }

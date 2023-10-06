@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Hardware;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
@@ -26,7 +25,7 @@ public class BuildingManager : MonoBehaviour
         }
         else if(building.BuildingType == BuildingType.Main)
         {
-            return Mathf.Min(MasterBuilding.Level-1,building.UpgradePrices.Count ==0? BuildingGlobalConfig.MainBuildingUpgradePrices.Count: building.UpgradePrices.Count);
+            return Mathf.Min(MasterBuilding.Level,building.UpgradePrices.Count ==0? BuildingGlobalConfig.MainBuildingUpgradePrices.Count: building.UpgradePrices.Count);
         }
         else
         {
@@ -72,6 +71,8 @@ public class BuildingManager : MonoBehaviour
     public Action<BuildingDefinitionSO> OnBuildingBeginsUpgrade;
 
     private List<BuildingController> BuildingControllers = new List<BuildingController>();
+    public BuildingDefinitionSO CurrentlySelectedBuilding =>CurrentlySelectedBuildingController?.BuildingDefinition;
+    public BuildingController CurrentlySelectedBuildingController;
 
     private void Update()
     {
@@ -86,13 +87,19 @@ public class BuildingManager : MonoBehaviour
             if (!IsUpgrading(building))
             {
                 BuildingsBeingUpgraded.RemoveAt(i);
-                StrategyDataManager.UpgradeBuildingLevel(building.ID);
+              
                 building.ShouldUpgrade = false;
+                StrategyDataManager.UpgradeBuildingLevel(building.ID);
                 i--;
                 OnBuildingUpgraded?.Invoke(building);
             }
         }
     }
+
+    //public bool IsUpgrading(BuildingDefinitionSO building)
+    //{
+    //    return BuildingsBeingUpgraded.Contains(building);
+    //}
 
     public void RegisterBuildingController(BuildingController controller)
     {
@@ -100,7 +107,7 @@ public class BuildingManager : MonoBehaviour
     }
 
 
-    public BuildingDefinitionSO CurrentlySelectedBuilding;
+   
     public int GetSubBuildingUpgradePercentage(BuildingDefinitionSO main, BuildingDefinitionSO sub)
     {
         int mainLevel = main.Level;
@@ -119,7 +126,10 @@ public class BuildingManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Attempts to upgrade a building. If a an upgrade slot is missing, the UI will be shown
+    /// </summary>
+    /// <param name="building"></param>
     internal void TryUpgradeBuilding(BuildingDefinitionSO building)
     {
         if(building.BuildingType != BuildingType.Sub && BuildingsBeingUpgraded.Count >= BuildingGlobalConfig.GetUpgradeSlots())
@@ -138,8 +148,9 @@ public class BuildingManager : MonoBehaviour
             {
                 building.ShouldUpgrade = true;
                 building.LastUpgradeTime = DateTime.UtcNow;
-                OnBuildingBeginsUpgrade?.Invoke(building);
+              
                 BuildingsBeingUpgraded.Add(building);
+
                 OnBuildingBeginsUpgrade?.Invoke(building);
             }
             else
@@ -178,7 +189,7 @@ public class BuildingManager : MonoBehaviour
         return true;
     }
 
-    internal List<ResourceAmount> GetUpgradePrice(BuildingDefinitionSO building)
+    public List<ResourceAmount> GetUpgradePrice(BuildingDefinitionSO building)
     {
         int level = building.Level;
         if (level < building.UpgradePrices.Count)
@@ -195,7 +206,11 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Returns how close a building is to being able to be upgraded. 100 means it can be upgraded. Different building types have different calculations
+    /// </summary>
+    /// <param name="building"></param>
+    /// <returns></returns>
     internal int GetMainBuildingUpgradePercentage(BuildingDefinitionSO building)
     {
         int requiredLevel = 0;
@@ -207,16 +222,9 @@ public class BuildingManager : MonoBehaviour
             {
                 if (m.MasterBuildingConstraint <= building.Level)
                 {
-                    if(m.MasterBuildingConstraint == building.Level)
-                    {
-                        requiredLevel += building.Level;
-                        acquiredLevel += m.Level;
-                    }
-                    else
-                    {
-                        requiredLevel += 1 ;
-                        acquiredLevel += m.Level-(building.Level-1);
-                    }
+                    requiredLevel += building.Level;
+                    acquiredLevel += m.Level;
+                    
 
                     
                 }
@@ -225,9 +233,10 @@ public class BuildingManager : MonoBehaviour
             return (int)(((float)acquiredLevel / (float)requiredLevel) * 100f);
         }
 
-
+        
         int numberOfSubBuildings = building.UpgradeConstraints.Count;
-
+        if (numberOfSubBuildings == 0)
+            return 100;
         foreach (var constraint in building.UpgradeConstraints)
         {
             if (constraint.StartLevel >building.Level)
@@ -258,7 +267,6 @@ public class BuildingManager : MonoBehaviour
         return (int)(((float)acquiredLevel / (float)requiredLevel)*100f);
 
 
-        return (int)(((float)(acquiredLevel - (numberOfSubBuildings*BuildingGlobalConfig.UpgradeRestrictionLevel * (building.Level-1))) / (float)(requiredLevel - (numberOfSubBuildings * BuildingGlobalConfig.UpgradeRestrictionLevel*(building.Level-1))) * 100));
     }
 
     internal bool CanUpgradeMainBuilding(BuildingDefinitionSO building)
@@ -276,7 +284,10 @@ public class BuildingManager : MonoBehaviour
         int maxSubLevel = (mainLevel) * BuildingManager.Instance.BuildingGlobalConfig.UpgradeRestrictionLevel;
         return maxSubLevel > subLevel;
     }
-
+    /// <summary>
+    /// Used to select a building. Opens UI and moves camera to specified building
+    /// </summary>
+    /// <param name="buildingDefinition"></param>
     internal void SelectBuilding(BuildingDefinitionSO buildingDefinition)
     {
         if(buildingDefinition!= null && buildingDefinition.BuildingType == BuildingType.Sub)
@@ -290,7 +301,7 @@ public class BuildingManager : MonoBehaviour
             }
             return;
         }
-        CurrentlySelectedBuilding = buildingDefinition;
+       
         if (buildingDefinition != null)
         {
             foreach(var cont in BuildingControllers)
@@ -298,18 +309,35 @@ public class BuildingManager : MonoBehaviour
                 if(cont.BuildingDefinition == buildingDefinition)
                 {
                     cont.Select();
-                    
+                    CurrentlySelectedBuildingController = cont;
+
                     StrategyMapCameraControls.Instance.SetCamera(cont.BuildingCamera);
                     StrategyMapCameraControls.Instance.SetSelected(cont);
 
                 }
             }
-            StrategyUIManager.Instance.BuildingStatusView.Fill(buildingDefinition);
-            StrategyUIManager.Instance.BuildingStatusView.Show();
+            if(buildingDefinition.Level == 0 && !BuildingsBeingUpgraded.Contains(buildingDefinition))
+            {
+                StrategyUIManager.Instance.BuildBuildingPopUp.Show();
+                StrategyUIManager.Instance.BuildBuildingPopUp.Fill(buildingDefinition,TryUpgradeBuilding);
+            }
+            else
+            {
+                StrategyUIManager.Instance.BuildingStatusView.Show();
+                StrategyUIManager.Instance.BuildingStatusView.Fill(buildingDefinition);
+            }
+            
+          
         }
         else
         {
-            StrategyMapCameraControls.Instance.UnselectBuilding();
+            if (CurrentlySelectedBuildingController != null)
+            {
+                CurrentlySelectedBuildingController.UnSelect();
+            }
+            CurrentlySelectedBuildingController = null;
+            StrategyMapCameraControls.Instance.SetDefaultCamera();
+            StrategyUIManager.Instance.BuildingStatusView.Hide();
         }
     }
 
@@ -330,7 +358,7 @@ public class BuildingManager : MonoBehaviour
     {
         ResourceAmountGroup group = BuildingGlobalConfig.GetUpgradeCost(building);
         DateTime lastUpgrade = building.LastUpgradeTime;
-        int timeNeeded = BuildingGlobalConfig.DefaultUpgradeTimer;
+        int timeNeeded = BuildingGlobalConfig.GetUpgradeTime(building);
         ResourceAmount amount = group.Prices.Find((u)=>u.type == ResourceType.Time);
         if (!building.ShouldUpgrade)
         {
@@ -358,7 +386,7 @@ public class BuildingManager : MonoBehaviour
 
         if(price == null)
         {
-            return BuildingGlobalConfig.DefaultUpgradeTimer;
+            return BuildingGlobalConfig.GetUpgradeTime(data);
         }
         else
         {
@@ -372,6 +400,15 @@ public class BuildingManager : MonoBehaviour
         data.ShouldUpgrade = false;
       //  data.LastUpgradeTime = DateTime.MinValue;
         OnBuildingBeginsUpgrade?.Invoke(data);
+    }
+
+    internal void FinishUpgrade(BuildingDefinitionSO data)
+    {
+        BuildingsBeingUpgraded.Remove(data);
+        StrategyDataManager.UpgradeBuildingLevel(data.ID);
+        data.ShouldUpgrade = false;
+      
+        OnBuildingUpgraded?.Invoke(data);
     }
 }
 [Serializable]

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+
+        <!-- Loading time Monitoring -->
+
+        <provider
+                android:name="io.voodoo.tools.StartupProvider"
+                android:authorities="${applicationId}.startup-provider"
+                android:initOrder="2147483647"
+                android:exported="false"
+        />
+    </application>
+</manifest>

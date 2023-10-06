@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+    <androidPackages>
+        <androidPackage spec="io.voodoo.nativeads:sdk:2.1.0">
+            <repositories>
+                <repository>https://voodoosauce-sdk.s3.eu-west-2.amazonaws.com/max-nativeads/android</repository>
+            </repositories>
+        </androidPackage>
+
+        <androidPackage spec="io.voodoo.nativeads:unityplugin:2.1.0">
+            <repositories>
+                <repository>https://voodoosauce-sdk.s3.eu-west-2.amazonaws.com/max-nativeads/android</repository>
+            </repositories>
+        </androidPackage>
+    </androidPackages>
+
+</dependencies>

@@ -12,7 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b0821d26dd8be47b391f2ff2a7c735, type: 3}
   m_Name: MissionGlobalSO
   m_EditorClassIdentifier: 
-  allMissions: []
+  allMissions:
+  - {fileID: 11400000, guid: cbccd90046e0d7e46af1c6800a132611, type: 2}
+  - {fileID: 11400000, guid: 4486d40a43ba8594f8543876b8e3b8d4, type: 2}
+  - {fileID: 11400000, guid: 6fdcbf7d3477f4b4598a3816ceb8c3a9, type: 2}
+  - {fileID: 11400000, guid: 0803e2dd9baa67645a67f5e44155413a, type: 2}
+  - {fileID: 11400000, guid: 2e99f67d62b4ab94b8ef2a0338433a06, type: 2}
+  - {fileID: 11400000, guid: b34ad86e68571fa41afa38b0a7462614, type: 2}
+  - {fileID: 11400000, guid: 3a54a0513ea8a954b8f5fdf0e05ec797, type: 2}
+  - {fileID: 11400000, guid: 5b2c925399c84ad47bc5d0c309d5dae6, type: 2}
+  - {fileID: 11400000, guid: 390f8ea551c36c14ba6c79ad54def671, type: 2}
   seasons:
   - seasonName: 'Season 1: Place Season Desciption Here.'
     seasonImage: {fileID: 0}

@@ -703,7 +703,9 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: gameanalytics_max_enabled
+    iPhone: gameanalytics_max_enabled
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

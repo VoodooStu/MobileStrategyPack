@@ -13,7 +13,7 @@ public class ResourceView : MonoBehaviour
     public void Fill(ResourceType type, float amount)
     {
         Icon.sprite = ResourceManager.Instance.GetResourceIcon(type);
-        Amount.text = amount.ToReadableString();
+        Amount.text = ((int)amount).ToString();
     }
 
     internal void Fill(ResourceAmount resource)

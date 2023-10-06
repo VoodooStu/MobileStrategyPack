@@ -1,13 +1,15 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Voodoo.Sauce.Core;
 
-public class StrategyIAPManager : MonoBehaviour
+public class StrategyIAPManager : MonoBehaviour, IPurchaseDelegateWithInfo
 {
     public static StrategyIAPManager Instance;
 
-    public const string ExtraBuildingSlots = "ExtraBuildingSlots";
+    public const string ExtraBuildingSlots = "com.voodoo.extrabuildingslots";
 
     private void Awake()
     {
@@ -16,6 +18,7 @@ public class StrategyIAPManager : MonoBehaviour
             Destroy(this);
             return;
         }
+        VoodooSauce.RegisterPurchaseDelegate(this);
         Instance = this;
     }
 
@@ -24,14 +27,50 @@ public class StrategyIAPManager : MonoBehaviour
         switch (purchase)
         {
             case ExtraBuildingSlots:
-                StrategyDataManager.ExtraBuildingSlots.Value++;
+                if(StrategyDataManager.ExtraBuildingSlots< ResourceManager.Instance.Configuration.MaxAllowedExtraBuildingSlots)
+                    StrategyDataManager.ExtraBuildingSlots.Value++;
                 break;
         }
     }
 
     internal void PurchaseExtraBuilderSlot()
     {
-        PurchaseItem(ExtraBuildingSlots);
+        VoodooSauce.Purchase(ExtraBuildingSlots);
+        
+    }
+
+    public void OnPurchaseComplete(ProductReceivedInfo productReceivedInfo, PurchaseValidation purchaseValidation)
+    {
+        if(purchaseValidation.status == ValidationStatus.Accepted)
+        {
+            if (purchaseValidation.isRestorationPurchase!=null && (bool)purchaseValidation.isRestorationPurchase == true)
+            {
+                if(StrategyDataManager.ExtraBuildingSlots<ResourceManager.Instance.Configuration.MaxAllowedExtraBuildingSlots && PlayerPrefs.GetInt("VD_AlreadyRestored"+productReceivedInfo.ProductId, 0) == 0)
+                {
+                    PurchaseItem(productReceivedInfo.ProductId);
+                    PlayerPrefs.SetInt("VD_AlreadyRestored" + productReceivedInfo.ProductId, 1);
+                }
+            }
+            else
+            {
+                PurchaseItem(productReceivedInfo.ProductId);
+            }
+        }
+    }
+
+    public void OnPurchaseFailure(VoodooPurchaseFailureReason reason, [CanBeNull] ProductReceivedInfo productReceivedInfo)
+    {
+      
+    }
+
+    public void OnInitializeSuccess()
+    {
+       
+    }
+
+    public void OnInitializeFailure(VoodooInitializationFailureReason reason)
+    {
+       
     }
 }
 

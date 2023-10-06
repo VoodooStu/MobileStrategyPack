@@ -26,11 +26,38 @@ public class BuildingUpgradeConstraint
 [CreateAssetMenu(fileName = "BuildingDefinition", menuName = "LaunchOpsABTests/Strategy/BuildingDefinition")]
 public class BuildingDefinitionSO : ScriptableObject
 {
-    public BuildingClass BuildingClass;
+   /// <summary>
+   /// Main type of building used for organisation of upgrades and prices
+   /// </summary>
     public BuildingType BuildingType;
+    /// <summary>
+    /// Secondary classification of building not used for upgrades and prices but can be used for other gameplay logic
+    /// </summary>
+    public BuildingClass BuildingClass;
     public string BuildingName;
     public string BuildingDescription;
+    public string DisplayName;
     public int MaxLevel => BuildingManager.Instance.GetMaxAllowedBuildingLevel(this);
+
+    public bool IsMaxLevel
+    {
+        get
+        {
+            foreach(var constraint in UpgradeConstraints)
+            {
+                if(constraint.StartLevel >= Level)
+                {
+                    if(constraint.BuildingDefinition.Level < Level * BuildingManager.Instance.BuildingGlobalConfig.UpgradeRestrictionLevel)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return Level >= BuildingManager.Instance.BuildingGlobalConfig.MaxBuildingLevel;
+        }
+    
+    
+    } //=> Level >= MaxLevel;
     public Sprite Icon;
     public List<ResourceRate> ResourceRates;
     public int MasterBuildingConstraint;

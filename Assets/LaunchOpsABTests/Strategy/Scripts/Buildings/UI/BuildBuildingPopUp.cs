@@ -30,15 +30,17 @@ public class BuildBuildingPopUp : MonoBehaviour
     }
 
 
-    private void Awake()
+    private void Start()
     {
-        Hide();
+        this.gameObject.SetActive(false);
     }
     public void OnClickButton()
     {
-      
+        BuildingManager.Instance.SelectBuilding(null);
         OnClick?.Invoke(Data);
+      
         Hide();
+        BuildingManager.Instance.SelectBuilding(Data);
     }
 
     public void Show()
@@ -48,6 +50,8 @@ public class BuildBuildingPopUp : MonoBehaviour
 
     public void Hide()
     {
+
+        BuildingManager.Instance.SelectBuilding(null);
         this.gameObject.SetActive(false);
     }
 }

@@ -1,0 +1,1147 @@
+fileFormatVersion: 2
+guid: 15165bde6f900447399d60adf7cd208d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: icons8-info-256
+  - first:
+      213: 21300002
+    second: icons8-trash-208
+  - first:
+      213: 21300004
+    second: console
+  - first:
+      213: 21300006
+    second: icons8-analytics-128
+  - first:
+      213: 21300008
+    second: icons8-bug-96
+  - first:
+      213: 21300010
+    second: icons8-error-64
+  - first:
+      213: 21300012
+    second: icons8-collapse-arrow-48-black
+  - first:
+      213: 21300014
+    second: icons8-play-52
+  - first:
+      213: 21300016
+    second: icons8-pause-52
+  - first:
+      213: 21300018
+    second: icons8-close-window-96
+  - first:
+      213: 21300020
+    second: icons8-checkmark-104
+  - first:
+      213: 21300022
+    second: icons8-checkmark-border-104
+  - first:
+      213: 21300024
+    second: icons8-checkmark-background-104
+  - first:
+      213: 21300026
+    second: icons8-filter-96
+  - first:
+      213: 21300028
+    second: icons8-toggle-on-48
+  - first:
+      213: 21300030
+    second: icons8-toggle-off-48
+  - first:
+      213: 21300032
+    second: sdk-512
+  - first:
+      213: 21300034
+    second: options
+  - first:
+      213: 21300036
+    second: adjust-icon
+  - first:
+      213: 21300038
+    second: icons8-domaine-96
+  - first:
+      213: 21300040
+    second: vs-logo
+  - first:
+      213: 21300042
+    second: icons8-spinner-96
+  - first:
+      213: 21300044
+    second: icons8-popup-background-104
+  - first:
+      213: 21300046
+    second: icons8-code-96
+  - first:
+      213: 21300048
+    second: icons8-money-100
+  - first:
+      213: 21300050
+    second: icons8-test-tube-48
+  - first:
+      213: 21300052
+    second: icons8-copy-48
+  - first:
+      213: 21300054
+    second: icons8-note-48
+  - first:
+      213: 21300056
+    second: icons8-key-48
+  - first:
+      213: 21300058
+    second: icons8-high-priority-48
+  - first:
+      213: 21300060
+    second: icons8-close-window-48
+  - first:
+      213: 21300062
+    second: icons8-collapse-arrow-48
+  - first:
+      213: 21300064
+    second: icons8-expand-arrow-48
+  - first:
+      213: 21300066
+    second: icons8-back-arrow-48
+  - first:
+      213: 21300068
+    second: icons8-info-48
+  - first:
+      213: 21300070
+    second: icon-iap
+  - first:
+      213: 21300072
+    second: bag
+  - first:
+      213: 21300074
+    second: recording_logo_on
+  - first:
+      213: 21300076
+    second: recording_logo_off
+  - first:
+      213: 21300078
+    second: icons8-hourglass-96
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 33
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 47
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sdk-512
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 256
+        height: 256
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0849ff35384d498683306f706319c75
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-info-256
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 1
+        width: 232
+        height: 232
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9c5e7053f1d44a26adfdc93a3ea5abb
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-trash-208
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 259
+        width: 176
+        height: 208
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb2adb60ad8804c8cb23f0362955c5dc
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bag
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 1
+        width: 145
+        height: 174
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fc782bb644df47e7a01c40c0e870690
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recording_logo_on
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 235
+        width: 166
+        height: 166
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0df489c5003104d998884f1d2f70ebfa
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: recording_logo_off
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 469
+        width: 166
+        height: 166
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0639c4d8c402648b38cc3e1436b5b651
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: console
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1
+        width: 154
+        height: 146
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bf4d19aee1c8452aa95ad19e904f411
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: options
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 177
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bedddac0f67640918f550695ac5740e
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: adjust-icon
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 403
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ab9fd1f15bfc495197ba7e627bb8849
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-analytics-128
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 637
+        width: 128
+        height: 128
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 522a4e51c329648908d0f9e1ce77ce0f
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-checkmark-background-104
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1
+        width: 104
+        height: 104
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11abae87d20f14be5a3c2bc574503d9f
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-checkmark-border-104
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 149
+        width: 104
+        height: 104
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 24, z: 24, w: 24}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32e3fd3ba7dea42eaab1fc339970ef1c
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-filter-96
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 307
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ce36ea7176447b9a438923e9fbe36f
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-domaine-96
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 533
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10b7da485b9d342acbf42035a5809182
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-hourglass-96
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 637
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f30a91d481b27410090caf685bf2b0c9
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-spinner-96
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 767
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6559a00876ffd4d52a15c7479402335c
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vs-logo
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 1
+        width: 96
+        height: 96
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b039f1d25fa4e429dbd1d8e60127a5a5
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icon-iap
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 107
+        width: 90
+        height: 90
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1a4d9c032c22430bb2bd0f4c9027109
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-bug-96
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 259
+        width: 72
+        height: 79
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5063291}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e7998c1ee7684df5b7c5209dc6fb297
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-close-window-96
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 255
+        width: 72
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e73c62475d644fb290f220fb3153261
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-money-100
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 235
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47915aac2e82d4e91ae811cc46b37fbb
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-code-96
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 403
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d16da07898273480e88dcc7365510f47
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-popup-background-104
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 533
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 14.769232, y: 14.769232, z: 14.769232, w: 14.769232}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: decc1ae8877a84294a1c17a993e8bd79
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-checkmark-104
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 631
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51f99dbe02b504cef8801786df5b48fb
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-error-64
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 735
+        width: 62
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 527c11816b07b45dfa7d47ac21486556
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-pause-52
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 865
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 159319167eb394684a565f0bd19967cf
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-play-52
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 99
+        width: 52
+        height: 52
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53f568024823a4851b1a1dfaa16e0a72
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-high-priority-48
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 149
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e388c61928bb94bc9847d1e13ec34594
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-collapse-arrow-48-black
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 340
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0748c7cf04194988aae703c06a638a3
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-info-48
+      rect:
+        serializedVersion: 2
+        x: 525
+        y: 307
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3d5a16ae9b424604bb1d9b74a1f7db6
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-test-tube-48
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 255
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6c516731b0e543ea8ce230a6e0844e8
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-toggle-off-48
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 405
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8aad302bf1c4ac58710421621dd0ab
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-toggle-on-48
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 469
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddf362e6f1aa347b3a7b3835108aa08f
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-back-arrow-48
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 599
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 961143a48e8e5420b8dd73e49ac6c36b
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-close-window-48
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 697
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83a6e265e34ce4d44a753cdb40011dd4
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-note-48
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 799
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deb905d1d4b3d4a67886086f346e8d0f
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-copy-48
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 865
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e56308b8e36946d9b4dd4bd428cfc79
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-expand-arrow-48
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 919
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63fa00ca61cfa4d4a95ffeef2591301c
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-key-48
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 153
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b8f5e77a13bd467fa519bd784f3987a
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: icons8-collapse-arrow-48
+      rect:
+        serializedVersion: 2
+        x: 956
+        y: 99
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 718f93b236d2d4486aea785f164e61b5
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      icons8-note-48: 21300054
+      icons8-domaine-96: 21300038
+      icons8-popup-background-104: 21300044
+      icons8-info-256: 21300000
+      recording_logo_off: 21300076
+      icons8-copy-48: 21300052
+      options: 21300034
+      icons8-test-tube-48: 21300050
+      icons8-checkmark-border-104: 21300022
+      icon-iap: 21300070
+      icons8-close-window-48: 21300060
+      icons8-pause-52: 21300016
+      icons8-high-priority-48: 21300058
+      icons8-info-48: 21300068
+      icons8-spinner-96: 21300042
+      icons8-key-48: 21300056
+      icons8-checkmark-104: 21300020
+      icons8-code-96: 21300046
+      adjust-icon: 21300036
+      icons8-collapse-arrow-48: 21300062
+      icons8-toggle-on-48: 21300028
+      sdk-512: 21300032
+      icons8-money-100: 21300048
+      icons8-toggle-off-48: 21300030
+      recording_logo_on: 21300074
+      icons8-checkmark-background-104: 21300024
+      icons8-bug-96: 21300008
+      icons8-close-window-96: 21300018
+      icons8-trash-208: 21300002
+      icons8-hourglass-96: 21300078
+      icons8-error-64: 21300010
+      vs-logo: 21300040
+      bag: 21300072
+      icons8-analytics-128: 21300006
+      icons8-filter-96: 21300026
+      icons8-collapse-arrow-48-black: 21300012
+      console: 21300004
+      icons8-back-arrow-48: 21300066
+      icons8-expand-arrow-48: 21300064
+      icons8-play-52: 21300014
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

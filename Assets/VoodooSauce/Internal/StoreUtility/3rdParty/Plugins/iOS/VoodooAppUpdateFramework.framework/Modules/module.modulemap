@@ -1,0 +1,11 @@
+framework module VoodooAppUpdateFramework {
+  umbrella header "VoodooAppUpdateFramework.h"
+
+  export *
+  module * { export * }
+}
+
+module VoodooAppUpdateFramework.Swift {
+    header "VoodooAppUpdateFramework-Swift.h"
+    requires objc
+}

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1384633641988006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4464613669252742}
+  - component: {fileID: 114027052956603786}
+  m_Layer: 0
+  m_Name: VoodooSauce
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4464613669252742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384633641988006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114027052956603786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384633641988006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9567e5b1f384cf39ce98e773fc8d4e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _appRaterPrefab: {fileID: 114692468002939742, guid: faaa9728373eb43f381982d0d78a7943,
+    type: 3}
+  _privacyCanvasPrefab: {fileID: 6410572205462165016, guid: 46f351e0519ac4f7aadce6c8f1170a05,
+    type: 3}
+  _cohortDebugMenuPrefab: {fileID: 114943434037604770, guid: 2e9da65a2e8f84bb28d3fbc61f01a971,
+    type: 3}
+  _bannerBackgroundPrefab: {fileID: 4003703813875015148, guid: 7c7edeb5f31ac6441a714bb24f160e99,
+    type: 3}
+  fakeAdsPrefab: {fileID: 7102378016331514855, guid: 19772d6d9e2c44a4beb51a65bdec1c85,
+    type: 3}
+  _accessButton: {fileID: 5780597668010373226, guid: 5404469ea940d404389411c0c8406d0b,
+    type: 3}
+  _performanceDisplayPrefab: {fileID: 3071132425456920234, guid: bdacd4706fdd5814d8624f6c6ffc44c9,
+    type: 3}

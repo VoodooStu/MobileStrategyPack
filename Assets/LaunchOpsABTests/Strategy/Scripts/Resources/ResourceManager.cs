@@ -9,8 +9,10 @@ public enum ResourceType
 {
     Time = -1,
     Soft = 0,
-    Wood = 1,
-    Special =2
+    Steel = 1,
+    Special =2,
+    Oil = 3,
+    Food= 4,
 }
 [Serializable]
 public class ResourceIcon
@@ -24,7 +26,7 @@ public class ResourceManager : MonoBehaviour
     private string ResourceGenKey = "RESOURCE_GEN";
 
     public SavedDateTime LastResourceGeneration;
-
+    public ResourceConfigurationSO Configuration;
     private static ResourceManager _instance;
     public static ResourceManager Instance
     {
@@ -59,7 +61,7 @@ public class ResourceManager : MonoBehaviour
         int numberOfSeconds = (int)(DateTime.UtcNow - LastResourceGeneration.Value).TotalSeconds;
         CalculateResources(ref resources, numberOfSeconds);
       
-        LastResourceGeneration.Value = DateTime.UtcNow;
+       
 
         float totalResources = 0;
         foreach(var r in resources)
@@ -68,10 +70,11 @@ public class ResourceManager : MonoBehaviour
         }
         if (totalResources > 0)
         {
-            StrategyUIManager.Instance.ResourceCollectView.Fill(resources);
+            StrategyUIManager.Instance.ResourceCollectView.Fill(resources, LastResourceGeneration);
             StrategyUIManager.Instance.ResourceCollectView.Show();
         }
-      
+        LastResourceGeneration.Value = DateTime.UtcNow;
+
     }
 
     public List<ResourceIcon> ResourceIcons = new List<ResourceIcon>();
@@ -155,18 +158,24 @@ public class ResourceManager : MonoBehaviour
 
     private void GenerateResources(BuildingDefinitionSO building, ref Dictionary<ResourceType, float> resources, int numberOfSeconds)
     {
+        numberOfSeconds = Mathf.Min (numberOfSeconds, Configuration.MaxGenerationTime);
         foreach (var rate in building.ResourceRates)
         {
             float amount = GetRate(building, rate);
             if(resources.ContainsKey(rate.Type))
             {
-                resources[rate.Type] += amount *numberOfSeconds;
+                resources[rate.Type] += amount *numberOfSeconds / Configuration.GenerationTime;
             }
             else
             {
-                resources.Add(rate.Type, amount*numberOfSeconds);
+                resources.Add(rate.Type, amount* numberOfSeconds / Configuration.GenerationTime);
             }
            
         }
+    }
+
+    internal int GetGemsRequired(TimeSpan timeSpan)
+    {
+        return (int)Mathf.Ceil((float)timeSpan.TotalSeconds / Configuration.SecondsToGems);
     }
 }

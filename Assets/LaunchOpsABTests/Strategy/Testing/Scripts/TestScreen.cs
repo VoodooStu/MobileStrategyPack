@@ -27,8 +27,9 @@ public class TestScreen : MonoBehaviour
     {
         if (building.IsUnlocked)
         {
-            StrategyUIManager.Instance.BuildingStatusView.Fill(building);
             StrategyUIManager.Instance.BuildingStatusView.Show();
+            StrategyUIManager.Instance.BuildingStatusView.Fill(building);
+          
         }
         else
         {

@@ -15,9 +15,8 @@ MonoBehaviour:
   missionName: Upgrade Control Center
   missionDescription: Upgrade Control Center To Level {1}!
   missionType: 1
-  missionRewardType: 0
   missionObjectiveType: 4
-  buildingDefinitionSO: {fileID: 11400000, guid: fca3512b5f3773c4fa28000b7506d240, type: 2}
+  buildingDefinitionSO: {fileID: 11400000, guid: 5e154452378fe404f99090e5d267a616, type: 2}
   missionObjectiveValue: 5
   Rewards:
   - type: 0

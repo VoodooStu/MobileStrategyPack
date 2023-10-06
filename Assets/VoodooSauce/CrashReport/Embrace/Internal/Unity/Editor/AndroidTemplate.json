@@ -1,0 +1,24 @@
+{
+  "launcherTemplate": {
+    "applyPlugin": [
+      "embrace-swazzler"
+    ],
+    "configurations": [
+      "swazzler {\n\tdisableDependencyInjection = true\n}"
+    ]
+  },
+  "baseProjectTemplate": {
+    "repositories": [
+      "mavenCentral"
+    ],
+    "dependencies": [
+      "classpath 'io.embrace:embrace-swazzler:5.18.0'"
+    ]
+  },
+  "gradleTemplate": {
+    "properties": [
+      "android.useAndroidX=true",
+      "android.enableJetifier=true"
+    ]
+  }
+}

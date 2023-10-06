@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/VoodooSauce/Internal/VoodooTune/RemoteConfig/SimpleJSON/SimpleJSONUnity.cs.meta
+guid: d66623136dc6f4ae3864d588521e5552
+=======
+guid: 0364fe3733fcc490d8db63a7b04c9c9f
+>>>>>>> 9d7b1667... [ARPU-20] Fetch and serialize config:Assets/VoodooSauce/Internal/Ads/AdFrequencyConfiguration.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

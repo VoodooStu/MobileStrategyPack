@@ -18,6 +18,7 @@ public class BuildingTimerPanel : MonoBehaviour
     {
         Hide();
     }
+    
 
     public void Show(Action onClick)
     {
@@ -25,12 +26,26 @@ public class BuildingTimerPanel : MonoBehaviour
         this.gameObject.SetActive(true);
         
         Fill();
-        PurchaseBuildSlotButton.SetActive(StrategyDataManager.ExtraBuildingSlots < 1);
+        PurchaseBuildSlotButton.SetActive(StrategyDataManager.ExtraBuildingSlots <ResourceManager.Instance.Configuration.MaxAllowedExtraBuildingSlots);
         PurchaseBuildSlotButton.transform.SetAsLastSibling();
+        BuildingManager.Instance.OnBuildingUpgraded += OnBuildingUpgraded;
+
+    }
+
+    private void OnBuildingUpgraded(BuildingDefinitionSO sO)
+    {
+        Fill();
+        if(BuildingManager.Instance.BuildingsBeingUpgraded.Count == 0)
+        {
+            Hide();
+        }
     }
 
     private void Fill()
     {
+
+
+
         while (Timers.Count > 0)
         {
             Destroy(Timers[0].gameObject);
@@ -48,6 +63,7 @@ public class BuildingTimerPanel : MonoBehaviour
     public void PurchaseSecondBuilder()
     {
         StrategyIAPManager.Instance.PurchaseExtraBuilderSlot();
+        Close();
     }
 
     public void Close()
@@ -59,6 +75,11 @@ public class BuildingTimerPanel : MonoBehaviour
 
     public void Hide()
     {
+        if (BuildingManager.Instance != null)
+        {
+            BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingUpgraded;
+
+        }
         this.gameObject.SetActive(false);
         OnClick = null;
     }   

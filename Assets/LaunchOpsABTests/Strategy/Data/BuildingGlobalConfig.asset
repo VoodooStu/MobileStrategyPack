@@ -15,6 +15,9 @@ MonoBehaviour:
   MaxBuildingLevel: 10
   UpgradeRestrictionLevel: 4
   DefaultUpgradeSlots: 1
+  MainBuildingPower: 0
+  SubBuildingPower: 0
+  MasterBuildingPower: 0
   MasterBuilding: {fileID: 11400000, guid: fca3512b5f3773c4fa28000b7506d240, type: 2}
   MasterBuildingUpgradePrices:
   - Prices:
@@ -50,6 +53,7 @@ MonoBehaviour:
   MainBuildings:
   - {fileID: 11400000, guid: 55aedf7e674e98b4b8d35e8b224ee927, type: 2}
   - {fileID: 11400000, guid: 3e94acabacdcf4449a75065b00bd1909, type: 2}
+  - {fileID: 11400000, guid: b87c4505946e054468ecf2abe383155f, type: 2}
   MainBuildingUpgradePrices:
   - Prices:
     - type: 0
@@ -240,4 +244,5 @@ MonoBehaviour:
   - Prices:
     - type: 1
       amount: 10
-  DefaultUpgradeTimer: 5
+  BaseUpgradeTimer: 0
+  UpgradeTimerPerLevel: 5

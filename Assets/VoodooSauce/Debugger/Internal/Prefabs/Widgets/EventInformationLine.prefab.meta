@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/VoodooSauce/Debugger/DebugScreen/EventConsole/Prefabs/EventInformationLine.prefab.meta
+guid: 3151cca3303af436e8560b36a458b719
+PrefabImporter:
+=======
+guid: edee73ea7c44749cfa42cde35ca79f27
+folderAsset: yes
+DefaultImporter:
+>>>>>>> 7937de3a7 (Update External Dependency Manager to 1.2.169):Assets/ExternalDependencyManager/Editor/1.2.169.meta
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

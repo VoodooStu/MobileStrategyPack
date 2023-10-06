@@ -12,6 +12,7 @@ public class BuildingController : MonoBehaviour
     public Cinemachine.CinemachineVirtualCamera BuildingCamera;
     public List<BuildingController> SubBuildings; 
     public TextMeshProUGUI BuildingName;
+    public BuildingNameTagView NameTag;
     private void Start()
     {
         BuildingManager.Instance.RegisterBuildingController(this);
@@ -22,12 +23,34 @@ public class BuildingController : MonoBehaviour
         }
         if (BuildingName != null)
         {
-            BuildingName.text = BuildingDefinition.BuildingName;
+            BuildingName.text = BuildingDefinition.DisplayName;
         }
         SetLevel(BuildingDefinition.Level, false);
         BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
+        BuildingManager.Instance.OnBuildingBeginsUpgrade += OnBuildingBeginsUpgrade;
         CheckMasterBuildingConstraint();
+        CheckIfUpgrading();
+       
     }
+
+   
+
+    private void OnBuildingBeginsUpgrade(BuildingDefinitionSO building)
+    {
+        if(building == BuildingDefinition)
+        {
+              CheckIfUpgrading();
+        }
+    }
+
+    void CheckIfUpgrading()
+    {
+        if (BuildingAnimator != null)
+        {
+            BuildingAnimator.SetBool("Upgrading",BuildingManager.Instance.IsUpgrading(BuildingDefinition));
+        }
+    }
+
     private void OnDestroy()
     {
         if(BuildingManager.Instance!=null)
@@ -36,11 +59,25 @@ public class BuildingController : MonoBehaviour
 
     public void CheckMasterBuildingConstraint()
     {
-        if (BuildingDefinition.BuildingType == BuildingType.Main)
+
+
+        if (BuildingAnimator != null)
         {
-            this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+            BuildingAnimator.SetBool("Constructed", BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
 
         }
+        else
+        {
+            this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+        }
+        if (NameTag != null)
+        {
+            NameTag.enabled = BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level;
+            NameTag.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+
+        }
+
+
     }
 
     private void OnBuildingLevelUp(BuildingDefinitionSO building)
@@ -92,10 +129,12 @@ public class BuildingController : MonoBehaviour
 
     internal void Select()
     {
-        BuildingAnimator.SetBool("Selected", true);
+        if(BuildingAnimator!=null)
+            BuildingAnimator.SetBool("Selected", true);
     }
      internal void UnSelect()
     {
-        BuildingAnimator.SetBool("Selected", false);
+        if (BuildingAnimator != null)
+            BuildingAnimator.SetBool("Selected", false);
     }
 }

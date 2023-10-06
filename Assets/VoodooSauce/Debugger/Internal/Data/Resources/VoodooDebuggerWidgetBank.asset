@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20488d2b6352e494296114aff3ed94ba, type: 3}
+  m_Name: VoodooDebuggerWidgetBank
+  m_EditorClassIdentifier: Assembly-CSharp:Voodoo.Sauce.Debugger:WidgetBank
+  debuggerPrefab: {fileID: 8098161690471637943, guid: 80c140ac29a9f6b46ad1daca158bc961,
+    type: 3}
+  widgets:
+  - {fileID: 3409257128474911397, guid: d55c4c531ea718148abb072465b83cde, type: 3}
+  - {fileID: 5718677531449257810, guid: 157e2c9cfd6e945529d0820d61aacad9, type: 3}
+  - {fileID: 2771595057315176883, guid: a13b2325c8aa445e59a5aacb2d7b6dc0, type: 3}
+  - {fileID: 114121842129924048, guid: b7b94d9548da741efafef3b26a6523fe, type: 3}
+  - {fileID: 7487352258487099556, guid: a2d0f4c8d9d0d4fb7b415ad95d04d279, type: 3}
+  - {fileID: 5193242141286785649, guid: 0e2467bb8bced4ec8bf3b275291cf6d0, type: 3}
+  - {fileID: 8974261976333315586, guid: a4dcdca6896fc49419922ee0bcbd0cca, type: 3}
+  - {fileID: 3330248365004309645, guid: 14d37031fff9d4ae591768dec1f2af97, type: 3}
+  - {fileID: 467801312735410755, guid: 45cef2b6be3964bf9b7593260a787372, type: 3}
+  - {fileID: 2503108880089897273, guid: fad561874d7c74caca7dcf748d0112ec, type: 3}
+  - {fileID: 4668786709731002323, guid: e1149f66bc7e648a5a9428bd70944b49, type: 3}

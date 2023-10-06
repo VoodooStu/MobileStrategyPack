@@ -1,0 +1,20 @@
+<network-security-config>
+    <!-- For AdColony and Ogury - all cleartext traffic allowed -->
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="user" />
+        </trust-anchors>
+    </debug-overrides>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- For Facebook Audience Network -->
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <!-- For Amazon -->
+        <domain includeSubdomains="true">amazon-adsystem.com</domain>
+    </domain-config>
+</network-security-config>

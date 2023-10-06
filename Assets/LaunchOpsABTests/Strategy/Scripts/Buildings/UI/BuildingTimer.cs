@@ -11,10 +11,19 @@ public class BuildingTimer : MonoBehaviour
     public TextMeshProUGUI UpgradeProgressText;
     public Image BuildingIcon;
 
+    public void OnClickGems() { 
+        int gemsRequired = ResourceManager.Instance.GetGemsRequired(upgradeFinishes-DateTime.UtcNow);
+        if(StrategyDataManager.GetResource(ResourceType.Special)>=gemsRequired)
+        {
+            StrategyDataManager.RemoveResource(ResourceType.Special, gemsRequired,"Skipping_Build");
+            BuildingManager.Instance.FinishUpgrade(Data);
+        }
+    }
 
     public void CancelBuild()
     {
         BuildingManager.Instance.CancelUpgrade(Data);
+        StrategyUIManager.Instance.UpgradeSlotsView.Hide();
     }
     DateTime upgradeStarted;
     DateTime upgradeFinishes;
@@ -34,6 +43,7 @@ public class BuildingTimer : MonoBehaviour
             int totalTime = BuildingManager.Instance.GetUpgradeTime(Data);
             UpgradeProgressFill.fillAmount = (float)(totalTime - timeSpan.TotalSeconds) / (float)BuildingManager.Instance.GetUpgradeTime(Data);
             UpgradeProgressText.text = timeSpan.ToString(@"hh\:mm\:ss");
+          
         }
         else
         {

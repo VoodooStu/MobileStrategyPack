@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f991abb97c1f340a2fdeabb7c9fc47, type: 3}
   m_Name: BuildingTwo
   m_EditorClassIdentifier: 
-  BuildingClass: 0
   BuildingType: 1
+  BuildingClass: 0
   BuildingName: Building Two
   BuildingDescription: This is a descrtiption
+  DisplayName: Building Two
   Icon: {fileID: 21300000, guid: e92527f6d0fe45342ab542b47346d45f, type: 3}
   ResourceRates: []
   MasterBuildingConstraint: 3

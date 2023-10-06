@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  ***************** Adjust Preinstall Tracker ***************** -->
+    <uses-permission android:name="com.adjust.preinstall.READ_PERMISSION"/>
+
+    <application>
+        <receiver android:name="com.adjust.sdk.AdjustPreinstallReferrerReceiver"
+                  android:exported="true">
+            <intent-filter>
+                <action android:name="com.attribution.SYSTEM_INSTALLER_REFERRER" />
+            </intent-filter>
+        </receiver>
+        
+        <!--  ADJUST REFERRER RECEIVER -->
+        <receiver
+                android:name="com.adjust.sdk.AdjustReferrerReceiver"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
