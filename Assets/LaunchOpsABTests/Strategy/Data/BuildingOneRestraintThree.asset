@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f991abb97c1f340a2fdeabb7c9fc47, type: 3}
   m_Name: BuildingOneRestraintThree
   m_EditorClassIdentifier: 
-  BuildingClass: 0
   BuildingType: 2
+  BuildingClass: 0
   BuildingName: Building Restraint Three
   BuildingDescription: This is a definition of the restraint
+  DisplayName: Building Restraint Three
   Icon: {fileID: 21300000, guid: 17035c204825f6340a252046ab6476fd, type: 3}
   ResourceRates:
   - Type: 1

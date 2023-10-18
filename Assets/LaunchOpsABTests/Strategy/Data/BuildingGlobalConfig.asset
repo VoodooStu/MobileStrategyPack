@@ -244,5 +244,5 @@ MonoBehaviour:
   - Prices:
     - type: 1
       amount: 10
-  BaseUpgradeTimer: 0
+  BaseUpgradeTimer: 99999
   UpgradeTimerPerLevel: 5

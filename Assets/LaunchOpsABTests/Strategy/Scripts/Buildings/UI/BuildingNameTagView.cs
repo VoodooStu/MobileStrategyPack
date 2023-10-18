@@ -65,7 +65,7 @@ public class BuildingNameTagView : MonoBehaviour
     {
         StrategyMapCameraControls.Instance.OnCameraMove += MovingCamera;
         StrategyMapCameraControls.Instance.OnCameraStopMove += StopMovingCamera;
-        IsShowing = true;
-        StopMovingCamera();
+        IsShowing = false;
+        this.gameObject.SetActive(false);
     }
 }

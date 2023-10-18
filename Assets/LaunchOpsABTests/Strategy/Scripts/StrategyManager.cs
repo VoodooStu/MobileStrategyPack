@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class StrategyManager : MonoBehaviour
 {
+    [Header("Debug Values")]
+
+    public bool DebugResources = false;
+    public bool ResourceDebug
+    {
+        get
+        {
+#if UNITY_EDITOR
+            return DebugResources;
+#endif
+            return false;
+        }
+    }
+
     public static StrategyManager Instance => _instance;
     private static StrategyManager _instance;
 

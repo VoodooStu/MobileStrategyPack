@@ -13,15 +13,34 @@ public class ProductionBar : MonoBehaviour
     public TextMeshProUGUI UpgradePercentage;
     public Image UpgradeFill;
     private BuildingDefinitionSO Data;
-
-    public void Fill(BuildingDefinitionSO _mainBuilding, BuildingDefinitionSO _data,ResourceRate _rate,int maxLevel)
+    float rate = 0;
+    public void Fill( BuildingDefinitionSO _data,ResourceRate _rate)
     {
-        int upgradePercentage = BuildingManager.Instance.GetSubBuildingUpgradePercentage(_mainBuilding, _data);
 
-        UpgradePercentage.text = upgradePercentage.ToString() + "%";
-        UpgradeFill.fillAmount = (float)upgradePercentage / 100f;
 
-        ResourceProductionRate.text  = ResourceManager.Instance.GetRate(_data, _rate).ToReadableString();
+        
+        rate = ResourceManager.Instance.GetRate(_data, _rate);
+        FillInBar();
+        ResourceProductionRate.text  = rate.ToReadableString();
         ResourceIcon.sprite = ResourceManager.Instance.GetResourceIcon(_rate.Type);  
+    }
+    void FillInBar()
+    {
+        if (rate <= 0)
+        {
+            UpgradePercentage.text = ((int)(0)).ToString() + "%";
+            UpgradeFill.fillAmount = 0f;
+        }
+        else
+        {
+            UpgradePercentage.text = ((int)(ResourceManager.Instance.CurrentProductionPercentage * 100f)).ToString() + "%";
+            UpgradeFill.fillAmount = (float)ResourceManager.Instance.CurrentProductionPercentage;
+        }
+       
+    }
+
+    private void Update()
+    {
+        FillInBar();
     }
 }

@@ -8,12 +8,11 @@ public class BuildBuildingPopUp : MonoBehaviour
     public ResourceView ResourceView;
     private List<ResourceView> ResourceViews = new List<ResourceView>();
     
-    public Action<BuildingDefinitionSO> OnClick;
     private BuildingDefinitionSO Data;
-    public void Fill(BuildingDefinitionSO _data, Action<BuildingDefinitionSO> _onClick)
+    public void Fill(BuildingDefinitionSO _data)
     {
         Data = _data;
-        OnClick = _onClick;
+        
         while(ResourceViews.Count >0)
         {
             Destroy(ResourceViews[0].gameObject);
@@ -36,11 +35,11 @@ public class BuildBuildingPopUp : MonoBehaviour
     }
     public void OnClickButton()
     {
-        BuildingManager.Instance.SelectBuilding(null);
-        OnClick?.Invoke(Data);
-      
+       
         Hide();
-        BuildingManager.Instance.SelectBuilding(Data);
+        BuildingManager.Instance.TryUpgradeBuilding(Data);
+       
+       
     }
 
     public void Show()

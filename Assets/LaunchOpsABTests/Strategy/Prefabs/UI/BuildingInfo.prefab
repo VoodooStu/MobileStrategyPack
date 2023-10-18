@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4744859002183477805}
   - component: {fileID: 4744859002183477803}
   - component: {fileID: 4744859002183477804}
+  - component: {fileID: 2393524976173532203}
+  - component: {fileID: 3646803546684422039}
+  - component: {fileID: 6847155512472128263}
   m_Layer: 5
   m_Name: BuildingInfo
   m_TagString: Untagged
@@ -78,6 +81,66 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2393524976173532203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744859002183477806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9da76bf7333724ca5c19c0104c5a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuildingName: {fileID: 4744859002639691534}
+  BuildingDescription: {fileID: 4744859002238977853}
+  UpgradeCostText: {fileID: 4744859002838545709}
+  UpgradeButton: {fileID: 4744859004068133138}
+  NextBuildingButton: {fileID: 3131488424394548345}
+  UpgradeResorceIcon: {fileID: 2886433694701378168}
+  ProductionBarPrefab: {fileID: 8538332152394262965, guid: 0186da482ea9c65418067f3b59fb1118, type: 3}
+  ProductionBarContainer: {fileID: 4744859002249866092}
+--- !u!114 &3646803546684422039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744859002183477806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &6847155512472128263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744859002183477806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 1
 --- !u!1 &4744859002249866093
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,8 +176,8 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 50}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4744859002249866089
@@ -192,6 +255,10 @@ PrefabInstance:
       propertyPath: m_text
       value: Upgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 5329644507558796767, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+      propertyPath: m_Name
+      value: UpgradePrice
+      objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -206,11 +273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchorMin.x
@@ -218,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_SizeDelta.x
@@ -258,11 +325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -284,10 +351,80 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7478897891012252650, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+      propertyPath: m_Name
+      value: UpgradeCostIcon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+--- !u!114 &2886433694701378168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2315201268521562760, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3131488424394548345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2547589675807067273, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4744859002238977853 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5329644506958720973, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4744859002639691534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5329644507623393278, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4744859002838545709 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5329644507558796765, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4744859003370301362 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5329644508102872898, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
   m_PrefabInstance: {fileID: 589852179173878000}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4744859004068133138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5329644509090107874, guid: d8a797cbb3962864488db4f27d62a1ce, type: 3}
+  m_PrefabInstance: {fileID: 589852179173878000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

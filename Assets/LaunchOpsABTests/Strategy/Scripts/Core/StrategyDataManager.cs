@@ -23,7 +23,15 @@ using UnityEngine;
 
                 }));
             }
+        if (StrategyManager.Instance.DebugResources)
+        {
+            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+            {
+                Resources[type].Value = 100000000;
+            }
         }
+       
+    }
 
         public static void AddResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
         {

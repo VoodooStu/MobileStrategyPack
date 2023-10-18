@@ -74,6 +74,8 @@ public class BuildingManager : MonoBehaviour
     public BuildingDefinitionSO CurrentlySelectedBuilding =>CurrentlySelectedBuildingController?.BuildingDefinition;
     public BuildingController CurrentlySelectedBuildingController;
 
+    
+
     private void Update()
     {
         CheckForUgrade();
@@ -130,13 +132,13 @@ public class BuildingManager : MonoBehaviour
     /// Attempts to upgrade a building. If a an upgrade slot is missing, the UI will be shown
     /// </summary>
     /// <param name="building"></param>
-    internal void TryUpgradeBuilding(BuildingDefinitionSO building)
+    internal bool TryUpgradeBuilding(BuildingDefinitionSO building, bool isInstant = false)
     {
         if(building.BuildingType != BuildingType.Sub && BuildingsBeingUpgraded.Count >= BuildingGlobalConfig.GetUpgradeSlots())
         {
             StrategyUIManager.Instance.UpgradeSlotsView.Show(null);
 
-            return;
+            return false;
         }
 
        List<ResourceAmount> price = GetUpgradePrice(building);
@@ -144,7 +146,7 @@ public class BuildingManager : MonoBehaviour
         {
             StrategyDataManager.Spend(price);
          
-            if(building.BuildingType != BuildingType.Sub)
+            if(building.BuildingType != BuildingType.Sub && !isInstant)
             {
                 building.ShouldUpgrade = true;
                 building.LastUpgradeTime = DateTime.UtcNow;
@@ -152,6 +154,7 @@ public class BuildingManager : MonoBehaviour
                 BuildingsBeingUpgraded.Add(building);
 
                 OnBuildingBeginsUpgrade?.Invoke(building);
+               
             }
             else
             {
@@ -168,7 +171,9 @@ public class BuildingManager : MonoBehaviour
         else
         {
             StrategyUIManager.Instance.InsufficentResourcesView.Show();
+            return false;
         }
+        return true;
     }
 
     internal bool IsMaxedOut(BuildingDefinitionSO building)
@@ -276,7 +281,7 @@ public class BuildingManager : MonoBehaviour
         return GetMainBuildingUpgradePercentage(building) >= 100;
     }
 
-    internal bool CanUpgradSubBuildinge(BuildingDefinitionSO main, BuildingDefinitionSO sub)
+    internal bool CanUpgradeSubBuilding(BuildingDefinitionSO main, BuildingDefinitionSO sub)
     {
         int mainLevel = main.Level;
         int subLevel = sub.Level;
@@ -319,12 +324,12 @@ public class BuildingManager : MonoBehaviour
             if(buildingDefinition.Level == 0 && !BuildingsBeingUpgraded.Contains(buildingDefinition))
             {
                 StrategyUIManager.Instance.BuildBuildingPopUp.Show();
-                StrategyUIManager.Instance.BuildBuildingPopUp.Fill(buildingDefinition,TryUpgradeBuilding);
+                StrategyUIManager.Instance.BuildBuildingPopUp.Fill(buildingDefinition);
             }
             else
             {
-                StrategyUIManager.Instance.BuildingStatusView.Show();
-                StrategyUIManager.Instance.BuildingStatusView.Fill(buildingDefinition);
+                StrategyUIManager.Instance.BuildingStatusView.Show(buildingDefinition);
+               
             }
             
           
@@ -352,6 +357,11 @@ public class BuildingManager : MonoBehaviour
             
         }
         return null;
+    }
+
+    public bool IsCurrentlyUpgrading(BuildingDefinitionSO building)
+    {
+        return BuildingsBeingUpgraded.Contains(building);
     }
 
     public bool IsUpgrading(BuildingDefinitionSO building)
@@ -410,6 +420,64 @@ public class BuildingManager : MonoBehaviour
       
         OnBuildingUpgraded?.Invoke(data);
     }
+
+    internal void SelectMasterBuilding()
+    {
+        SelectBuilding(BuildingGlobalConfig.MasterBuilding);
+    }
+    public string GetUpgradeTimer(BuildingDefinitionSO Data)
+    {
+        DateTime upgradeStarted = Data.LastUpgradeTime;
+        DateTime upgradeFinishes = upgradeStarted.AddSeconds(BuildingManager.Instance.GetUpgradeTime(Data));
+        TimeSpan timeSpan = upgradeFinishes - DateTime.UtcNow;
+        return timeSpan.ToString(@"hh\:mm\:ss");
+    }
+    internal int GetGemsRequired(BuildingDefinitionSO data)
+    {
+        return ResourceManager.Instance.GetGemsRequired(GetUpgradeTimeSpan(data));
+    }
+
+    private TimeSpan GetUpgradeTimeSpan(BuildingDefinitionSO data)
+    {
+        if (BuildingsBeingUpgraded.Contains(data))
+        {
+            DateTime upgradeStarted = data.LastUpgradeTime;
+            DateTime upgradeFinishes = upgradeStarted.AddSeconds(BuildingManager.Instance.GetUpgradeTime(data));
+            return upgradeFinishes - DateTime.UtcNow;
+        }
+        else
+        {
+            return new TimeSpan(0, 0, GetUpgradeTime(data));
+        }
+
+
+    }
+
+    internal bool InstantUpgrade(BuildingDefinitionSO data)
+    {
+        int gemsRequired = GetGemsRequired(data);
+        if (StrategyDataManager.GetResource(ResourceType.Special) >= gemsRequired)
+        {
+
+            bool canUpgrade = TryUpgradeBuilding(data, true);
+            if (canUpgrade)
+            {
+                StrategyDataManager.RemoveResource(ResourceType.Special, gemsRequired, "Instant_Build");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            StrategyUIManager.Instance.InsufficentResourcesView.Show();
+            StrategyUIManager.Instance.InsufficentResourcesView.Fill(new List<ResourceAmount>() { new ResourceAmount() { type = ResourceType.Special, amount = gemsRequired } });
+            return false;
+        }
+    }
+
 }
 [Serializable]
 public class ResourceAmount

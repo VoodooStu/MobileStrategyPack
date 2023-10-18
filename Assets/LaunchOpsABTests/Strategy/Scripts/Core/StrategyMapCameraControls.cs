@@ -173,7 +173,7 @@ public class StrategyMapCameraControls : MonoBehaviour
                     }else if(building != null && building.BuildingDefinition.Level == 0)
                     {
                         
-                        StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition, BuildingManager.Instance.TryUpgradeBuilding);
+                        StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition);
                         StrategyUIManager.Instance.BuildBuildingPopUp.Show();
                     }
                 }

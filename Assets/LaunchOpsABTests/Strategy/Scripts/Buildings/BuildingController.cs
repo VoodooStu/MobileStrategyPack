@@ -13,6 +13,10 @@ public class BuildingController : MonoBehaviour
     public List<BuildingController> SubBuildings; 
     public TextMeshProUGUI BuildingName;
     public BuildingNameTagView NameTag;
+    private void Awake()
+    {
+        NameTag.enabled = false;
+    }
     private void Start()
     {
         BuildingManager.Instance.RegisterBuildingController(this);
@@ -28,6 +32,7 @@ public class BuildingController : MonoBehaviour
         SetLevel(BuildingDefinition.Level, false);
         BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
         BuildingManager.Instance.OnBuildingBeginsUpgrade += OnBuildingBeginsUpgrade;
+       
         CheckMasterBuildingConstraint();
         CheckIfUpgrading();
        
@@ -63,14 +68,14 @@ public class BuildingController : MonoBehaviour
 
         if (BuildingAnimator != null)
         {
-            BuildingAnimator.SetBool("Constructed", BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
-
+            BuildingAnimator.SetBool("CanBeConstructed", BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+            BuildingAnimator.SetBool("Constructed", BuildingDefinition.Level >0);
         }
         else
         {
             this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
         }
-        if (NameTag != null)
+        if (NameTag != null && !NameTag.enabled)
         {
             NameTag.enabled = BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level;
             NameTag.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);

@@ -21,9 +21,9 @@ MonoBehaviour:
   ResourceRates: []
   MasterBuildingConstraint: 1
   UpgradeConstraints:
-  - StartLevel: 0
+  - StartLevel: 1
     BuildingDefinition: {fileID: 11400000, guid: e13faa3fbb4b2c947a0635396fd822a7, type: 2}
-  - StartLevel: 0
+  - StartLevel: 1
     BuildingDefinition: {fileID: 11400000, guid: b3f81c9bfc6298f4386c1111257939ae, type: 2}
   - StartLevel: 5
     BuildingDefinition: {fileID: 11400000, guid: 620b42c58672b714086c5f40e5a55333, type: 2}

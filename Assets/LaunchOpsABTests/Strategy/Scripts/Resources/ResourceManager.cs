@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class ResourceIcon
 {
     public ResourceType Type;
     public Sprite Icon;
+    public TMP_SpriteAsset SpriteAsset;
 }
 
 public class ResourceManager : MonoBehaviour
@@ -84,7 +86,7 @@ public class ResourceManager : MonoBehaviour
         var icon = ResourceIcons.Where(x => x.Type == type).FirstOrDefault();
         if(icon == null)
         {
-            Debug.LogError("No icon found for resource type " + type);
+            //Debug.LogError("No icon found for resource type " + type);
             return null;
         }
         return icon.Icon;
@@ -106,13 +108,13 @@ public class ResourceManager : MonoBehaviour
     {
         return data.Level * rate.Rate;
     }
-
+    public float CurrentProductionPercentage;
 
     private void Update()
     {
         TimeSpan timeSpan = DateTime.UtcNow - LastResourceGeneration.Value;
-       
-        if(timeSpan.TotalSeconds>5)
+        CurrentProductionPercentage = (float)timeSpan.TotalSeconds / Configuration.GenerationTime;
+        if (timeSpan.TotalSeconds> Configuration.GenerationTime)
         {
             GenerateResources();
         }
@@ -177,5 +179,16 @@ public class ResourceManager : MonoBehaviour
     internal int GetGemsRequired(TimeSpan timeSpan)
     {
         return (int)Mathf.Ceil((float)timeSpan.TotalSeconds / Configuration.SecondsToGems);
+    }
+
+    internal TMP_SpriteAsset GetResourceSpriteAsset(ResourceType type)
+    {
+        var icon = ResourceIcons.Where(x => x.Type == type).FirstOrDefault();
+        if (icon == null)
+        {
+            Debug.LogError("No Sprite Asset found for resource type " + type);
+            return null;
+        }
+        return icon.SpriteAsset;
     }
 }

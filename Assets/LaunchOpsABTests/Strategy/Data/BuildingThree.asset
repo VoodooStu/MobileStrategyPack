@@ -19,6 +19,6 @@ MonoBehaviour:
   DisplayName: Building Three
   Icon: {fileID: 21300000, guid: e92527f6d0fe45342ab542b47346d45f, type: 3}
   ResourceRates: []
-  MasterBuildingConstraint: 0
+  MasterBuildingConstraint: 5
   UpgradeConstraints: []
   UpgradePrices: []

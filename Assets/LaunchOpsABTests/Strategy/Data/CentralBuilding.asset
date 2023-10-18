@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f991abb97c1f340a2fdeabb7c9fc47, type: 3}
   m_Name: CentralBuilding
   m_EditorClassIdentifier: 
-  BuildingClass: 0
   BuildingType: 0
+  BuildingClass: 0
   BuildingName: Central Building
   BuildingDescription: This is the central building.
-  MaxLevel: 0
+  DisplayName: Central Building
   Icon: {fileID: 0}
   ResourceRates: []
+  MasterBuildingConstraint: 0
   UpgradeConstraints: []
   UpgradePrices: []
