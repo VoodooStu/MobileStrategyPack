@@ -28,7 +28,8 @@ public class BuildingTimerPanel : MonoBehaviour
         Fill();
         PurchaseBuildSlotButton.SetActive(StrategyDataManager.ExtraBuildingSlots <ResourceManager.Instance.Configuration.MaxAllowedExtraBuildingSlots);
         PurchaseBuildSlotButton.transform.SetAsLastSibling();
-        BuildingManager.Instance.OnBuildingUpgraded += OnBuildingUpgraded;
+        StrategyEvents.OnBuildingLevelChanged += OnBuildingUpgraded;
+        
 
     }
 
@@ -75,11 +76,7 @@ public class BuildingTimerPanel : MonoBehaviour
 
     public void Hide()
     {
-        if (BuildingManager.Instance != null)
-        {
-            BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingUpgraded;
-
-        }
+        StrategyEvents.OnBuildingLevelChanged -= OnBuildingUpgraded;
         this.gameObject.SetActive(false);
         OnClick = null;
     }   

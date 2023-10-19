@@ -9,6 +9,7 @@ public enum BuildingViewType {
     BuildingInfoNoComponents = 3,
     UpgradingBuilding = 4,
     CanUpgradeBuilding = 5,
+    WeaponsShop = 6,
   
 
 }
@@ -23,6 +24,7 @@ public class BuildingBaseStatusGroup : MonoBehaviour
     public void ActivateGroup()
     {
         SetActive(true);
+
     }
 
     public void SetActive(bool active)

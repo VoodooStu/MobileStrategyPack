@@ -12,12 +12,18 @@ public class MissionsButtonView : MonoBehaviour
 
     private void Start()
     {
-        MissionsManager.Instance.OnMissionsUpdated += OnMissionsUpdated;
-        BuildingManager.Instance.OnBuildingUpgraded += OnMissionsUpdated;
+
+        StrategyEvents.OnBuildingLevelChanged += OnMissionsUpdated;
+        StrategyEvents.MissionUpdated += OnMissionsUpdated;
         OnMissionsUpdated();
     }
 
-    private void OnMissionsUpdated(BuildingDefinitionSO sO)
+
+    private void OnMissionsUpdated(BuildingDefinitionSO missionSO)
+    {
+        OnMissionsUpdated();
+    }
+    private void OnMissionsUpdated(MissionSO missionSO)
     {
         OnMissionsUpdated();
     }
@@ -30,8 +36,8 @@ public class MissionsButtonView : MonoBehaviour
 
     private void OnDestroy()
     {
-        MissionsManager.Instance.OnMissionsUpdated -= OnMissionsUpdated;
-        BuildingManager.Instance.OnBuildingUpgraded -= OnMissionsUpdated;
+        StrategyEvents.OnBuildingLevelChanged -= OnMissionsUpdated;
+        StrategyEvents.MissionUpdated -= OnMissionsUpdated;
     }
 
     public void OnClick()

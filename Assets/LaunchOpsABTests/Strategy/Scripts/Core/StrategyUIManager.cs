@@ -5,7 +5,7 @@ using UnityEngine;
 public class StrategyUIManager : MonoBehaviour
 {
     public BuildingStatusView BuildingStatusView;
-    public BuildBuildingPopUp BuildBuildingPopUp;
+    
     public ResourceCollectView ResourceCollectView;
     public InsufficentResourcesView InsufficentResourcesView;
     public BuildingTimerPanel UpgradeSlotsView;

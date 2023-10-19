@@ -14,16 +14,17 @@ public class MissionsView : MonoBehaviour
     List<MissionSO> currentMissions;
     private void Start()
     {
-
-        MissionsManager.Instance.OnMissionsUpdated += OnMissionsUpdated;
+       
+        StrategyEvents.MissionUpdated += OnMissionsUpdated;
+       
 
         Hide();
     }
     private void OnDestroy()
     {
-        MissionsManager.Instance.OnMissionsUpdated -= OnMissionsUpdated;
+        StrategyEvents.MissionUpdated -= OnMissionsUpdated;
     }
-    private void OnMissionsUpdated()
+    private void OnMissionsUpdated(MissionSO missionSO)
     {
         Refresh();
     }

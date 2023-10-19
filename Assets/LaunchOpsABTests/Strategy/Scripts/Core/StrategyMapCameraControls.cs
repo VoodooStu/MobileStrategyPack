@@ -164,18 +164,9 @@ public class StrategyMapCameraControls : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, float.MaxValue,BuildingLayer))
                 {
                     BuildingController building = hit.collider.GetComponentInParent<BuildingController>();
-                    if (building != null && (building.BuildingDefinition.Level>0 || BuildingManager.Instance.IsUpgrading(building.BuildingDefinition)))
-                    {
-                       
-                        BuildingManager.Instance.SelectBuilding(building.BuildingDefinition);
-                        
+                   
+                    BuildingManager.Instance.SelectBuilding(building.BuildingDefinition);
                      
-                    }else if(building != null && building.BuildingDefinition.Level == 0)
-                    {
-                        
-                        StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building.BuildingDefinition);
-                        StrategyUIManager.Instance.BuildBuildingPopUp.Show();
-                    }
                 }
             }
         }
@@ -228,8 +219,8 @@ public class StrategyMapCameraControls : MonoBehaviour
         _currentBuilding = cont;
         _currentBuilding.Select();
     }
-
-    private CinemachineVirtualCamera _currentVCam;
+  
+    public CinemachineVirtualCamera _currentVCam;
     public CinemachineVirtualCamera _defaultVCam;
 
 }

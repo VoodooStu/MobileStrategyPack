@@ -25,17 +25,10 @@ public class TestScreen : MonoBehaviour
 
     private void OnBuildingSelected(BuildingDefinitionSO building)
     {
-        if (building.IsUnlocked)
-        {
+        
             StrategyUIManager.Instance.BuildingStatusView.Show(building);
             
-          
-        }
-        else
-        {
-            StrategyUIManager.Instance.BuildBuildingPopUp.Fill(building);
-            StrategyUIManager.Instance.BuildBuildingPopUp.Show();
-        }
+      
       
 
     }

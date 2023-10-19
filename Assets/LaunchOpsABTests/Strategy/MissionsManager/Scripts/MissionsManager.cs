@@ -60,9 +60,6 @@ public class MissionsManager : MonoBehaviour
     
     private const string DAILY_MISSIONS_KEY = "DAILY_MISSIONS_KEY";
 
-    public Action OnMissionsUpdated;
-
-
     private void Awake()
     {
         if (Instance == null)
@@ -110,7 +107,8 @@ public class MissionsManager : MonoBehaviour
             StrategyUIManager.Instance.SeasonCompletePopUp.Fill(CurrentSeasonData);
             StrategyUIManager.Instance.MissionsView.Hide();
         }
-        OnMissionsUpdated?.Invoke();
+        StrategyEvents.MissionUpdated?.Invoke(mission);
+        
 
     }
 

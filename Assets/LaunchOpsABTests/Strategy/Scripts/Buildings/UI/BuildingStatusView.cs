@@ -51,6 +51,8 @@ public class BuildingStatusView : MonoBehaviour
 
 
     List<BuildingBaseStatusGroup> BuildingStatusViews = new List<BuildingBaseStatusGroup>();
+
+    private bool IsShowing = false;
     int CurrentLevel;
     private void Awake()
     {
@@ -60,21 +62,50 @@ public class BuildingStatusView : MonoBehaviour
     }
     private void Start()
     {
-        StrategyDataManager.OnBuildingLevelChanged += OnBuildingLevelChanged;
-        BuildingManager.Instance.OnBuildingBeginsUpgrade += OnBuildingBeginsUpgrade;
-        BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelChanged;
 
+        StrategyEvents.OnBuildingLevelChanged += OnBuildingLevelChanged;
+        StrategyEvents.OnBuildingUpgradeStart += OnBuildingBeginsUpgrade;
+        StrategyEvents.OnBuildingUpgradeCancelled += OnBuildingUpgradeCancelled;
+
+    }
+    private void OnDestroy()
+    {
+        StrategyEvents.OnBuildingLevelChanged -= OnBuildingLevelChanged;
+        StrategyEvents.OnBuildingUpgradeStart -= OnBuildingBeginsUpgrade;
+        StrategyEvents.OnBuildingUpgradeCancelled -= OnBuildingUpgradeCancelled;
+
+    }
+
+    private void OnBuildingUpgradeCancelled(BuildingDefinitionSO building)
+    {
+        if (!IsShowing)
+        {
+            return;
+        }
+        var previousSub = SubBuildingData;
+        if (Data == building)
+        {
+            Fill(Data);
+            if (previousSub != null)
+            {
+                SelectSubBuilding(previousSub);
+            }
+        }
     }
 
     private void OnBuildingLevelChanged(BuildingDefinitionSO building)
     {
+        if (!IsShowing)
+        {
+            return;
+        }
         var previousSub = SubBuildingData;
         if (Data.Level != CurrentLevel)
             Show(Data);
         else
         {
             Fill(Data);
-            if (SubBuildingData != null)
+            if (previousSub != null)
             {
                 SelectSubBuilding(previousSub);
             }
@@ -84,15 +115,14 @@ public class BuildingStatusView : MonoBehaviour
 
     private void OnBuildingBeginsUpgrade(BuildingDefinitionSO building)
     {
-        Show(building);
+        if (!IsShowing)
+        {
+            return;
+        }
+        Fill(building);
     }
 
-    private void OnDestroy()
-    {
-        StrategyDataManager.OnBuildingLevelChanged -= OnBuildingLevelChanged;
-        BuildingManager.Instance.OnBuildingBeginsUpgrade -= OnBuildingBeginsUpgrade;
-        BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingLevelChanged;
-    }
+   
 
     private void OnBuildingLevelChanged()
     {
@@ -148,16 +178,6 @@ public class BuildingStatusView : MonoBehaviour
           
         }
 
-        // Setting default values
-        //UpgradeBonusArea.SetActive(false);
-        //SkipUpgardeButton.SetActive(false);
-        //UpgradeRequirementArea.gameObject.SetActive(true);
-        //MainBuildingArea.SetActive(true);
-        //MainBuildingUpgradeButton.gameObject.SetActive(false);
-        //UpgradeAvailableImage.SetActive(false);
-        //UpgradeMasterIcon.SetActive(false);
-        //MaxedImage.SetActive(false);
-        //BuildingTimerParent.gameObject.SetActive(false);
 
         if (isMaxedOut)
         {
@@ -170,22 +190,22 @@ public class BuildingStatusView : MonoBehaviour
         else if (BuildingManager.Instance.IsCurrentlyUpgrading(Data))
         {
             SetUpUpgrading();
-            //UpgradeRequirementArea.gameObject.SetActive(false);
-            //MainBuildingArea.SetActive(false);
-            //BuildingTimerParent.gameObject.SetActive(true);
+          
             viewType = BuildingViewType.UpgradingBuilding;
         }
         else
         {
             UpgradeRequirementArea.Fill(Data);
-          
-            //UpgradingImage.gameObject.SetActive(false);
-            //MainBuildingUpgradeProgressText.gameObject.SetActive(true);
 
-          
-            if (canUpgradeMain && isRestricted)
+            if (!Data.IsUnlocked)
             {
-                //UpgradeMasterIcon.SetActive(true);
+                HeaderView.SetState(BuildingHeaderState.Build);
+                viewType = BuildingViewType.BuildBuilding;
+                UpgradeRequirementArea.Fill(Data);
+            }
+            else if (canUpgradeMain && isRestricted)
+            {
+             
                 HeaderView.SetState(BuildingHeaderState.UpgradeMaster);
             }
             else if (canUpgradeMain)
@@ -196,19 +216,11 @@ public class BuildingStatusView : MonoBehaviour
                     StartUpgradeProgress();
                 }
                 HeaderView.SetState(BuildingHeaderState.UpgradeAvailable);
-               // MainBuildingUpgradeButton.gameObject.SetActive(true);
+               
             }
             else
             {
-              
                 HeaderView.SetState(BuildingHeaderState.UpgradeUnAvailable);
-                
-               
-               // MainBuildingUpgradeButton.gameObject.SetActive(false);
-                
-              
-
-                //MainBuildingUpgradeButtonText.text = string.Format("<sprite={0}>", (int)amount.type) + amount.amount.ToReadableString() + "/" + StrategyDataManager.GetResource(amount.type).ToReadableString();
             }
             MainBuildingUpgradeButton.interactable = StrategyDataManager.CanAfford(BuildingManager.Instance.GetUpgradePrice(Data));
             ResourceAmount amount = BuildingManager.Instance.GetUpgradePrice(Data)[0];
@@ -229,7 +241,7 @@ public class BuildingStatusView : MonoBehaviour
 
     private void SwitchView(BuildingViewType view)
     {
-        Debug.LogError("Switching to " + view.ToString());
+       
         foreach (var stat in BuildingStatusViews)
         {
             if (stat.BuildingViewType == view)
@@ -242,8 +254,14 @@ public class BuildingStatusView : MonoBehaviour
     public void StartUpgradeProgress()
     {
         viewType = BuildingViewType.UpgradeBuilding;
+        HeaderView.SetState(BuildingHeaderState.BeginUpgrade);
         SwitchView(viewType);
         SelectMainBuilding();
+    }
+
+    public void EndUpgradeProgress()
+    {
+        Fill(Data);
     }
 
 
@@ -396,8 +414,9 @@ public class BuildingStatusView : MonoBehaviour
 
     internal async void Show(BuildingDefinitionSO building)
     {
-        this.gameObject.SetActive(false);
+        
         this.gameObject.SetActive(true);
+        IsShowing = true;
         Fill(building);
         var rect = MainArea.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(rect.sizeDelta.x, 0);
@@ -408,13 +427,13 @@ public class BuildingStatusView : MonoBehaviour
     }
     internal void Hide()
     {
-
+        IsShowing = false;
         if (ICheckGems != null)
         {
             StopCoroutine(ICheckGems);
             ICheckGems = null;
         }
-       
+     
         this.gameObject.SetActive(false);
     }
 

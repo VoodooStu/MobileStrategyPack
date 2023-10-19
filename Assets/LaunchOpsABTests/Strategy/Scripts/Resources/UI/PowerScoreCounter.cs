@@ -11,12 +11,12 @@ public class PowerScoreCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BuildingManager.Instance.OnBuildingUpgraded += OnBuildingUpgraded;
+        StrategyEvents.OnBuildingLevelChanged += OnBuildingUpgraded;
         OnBuildingUpgraded(null);
     }
     private void OnDestroy()
     {
-        BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingUpgraded;
+        StrategyEvents.OnBuildingLevelChanged -= OnBuildingUpgraded;
     }
 
     private void OnBuildingUpgraded(BuildingDefinitionSO sO)

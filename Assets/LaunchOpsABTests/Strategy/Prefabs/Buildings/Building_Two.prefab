@@ -1418,6 +1418,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1029231250122360197, guid: e9779626e21826840922340a50718952, type: 3}
+      propertyPath: BuildingAnimator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173804488559280057, guid: e9779626e21826840922340a50718952, type: 3}
+      propertyPath: BuildingAnimator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507819785660362912, guid: e9779626e21826840922340a50718952, type: 3}
+      propertyPath: BuildingAnimator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145084944528050191, guid: e9779626e21826840922340a50718952, type: 3}
+      propertyPath: BuildingAnimator
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7274761007556049606, guid: e9779626e21826840922340a50718952, type: 3}
       propertyPath: m_RootOrder
       value: 0

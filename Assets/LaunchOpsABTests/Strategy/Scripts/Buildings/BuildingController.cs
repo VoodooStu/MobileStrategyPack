@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ public class BuildingController : MonoBehaviour
     public BuildingNameTagView NameTag;
     private void Awake()
     {
-        NameTag.enabled = false;
+        if(NameTag!=null)
+            NameTag.enabled = false;
     }
     private void Start()
     {
@@ -30,15 +32,19 @@ public class BuildingController : MonoBehaviour
             BuildingName.text = BuildingDefinition.DisplayName;
         }
         SetLevel(BuildingDefinition.Level, false);
-        BuildingManager.Instance.OnBuildingUpgraded += OnBuildingLevelUp;
-        BuildingManager.Instance.OnBuildingBeginsUpgrade += OnBuildingBeginsUpgrade;
+       
+        StrategyEvents.OnBuildingLevelChanged += OnBuildingLevelUp;
+        StrategyEvents.OnBuildingUpgradeStart += OnBuildingBeginsUpgrade;
        
         CheckMasterBuildingConstraint();
         CheckIfUpgrading();
        
     }
 
-   
+    private void OnBuildingLevelUp()
+    {
+        CheckIfUpgrading();
+    }
 
     private void OnBuildingBeginsUpgrade(BuildingDefinitionSO building)
     {
@@ -52,29 +58,40 @@ public class BuildingController : MonoBehaviour
     {
         if (BuildingAnimator != null)
         {
-            BuildingAnimator.SetBool("Upgrading",BuildingManager.Instance.IsUpgrading(BuildingDefinition));
+            BuildingAnimator.SetBool("Upgrading",BuildingManager.Instance.IsCurrentlyUpgrading(BuildingDefinition));
         }
     }
 
     private void OnDestroy()
     {
-        if(BuildingManager.Instance!=null)
-            BuildingManager.Instance.OnBuildingUpgraded -= OnBuildingLevelUp;
+
+        StrategyEvents.OnBuildingLevelChanged += OnBuildingLevelUp;
+        StrategyEvents.OnBuildingUpgradeStart += OnBuildingBeginsUpgrade;
+
     }
 
     public void CheckMasterBuildingConstraint()
     {
 
-
         if (BuildingAnimator != null)
         {
             BuildingAnimator.SetBool("CanBeConstructed", BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
-            BuildingAnimator.SetBool("Constructed", BuildingDefinition.Level >0);
+            BuildingAnimator.SetBool("Constructed", BuildingDefinition.Level > 0);
         }
         else
         {
-            this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+            if (BuildingDefinition.BuildingType == BuildingType.Sub)
+            {
+                this.gameObject.SetActive(BuildingDefinition.Level > 0);
+                
+            }
+            else
+            {
+                this.gameObject.SetActive(BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level);
+
+            }
         }
+       
         if (NameTag != null && !NameTag.enabled)
         {
             NameTag.enabled = BuildingDefinition.MasterBuildingConstraint <= BuildingManager.Instance.MasterBuilding.Level;
@@ -93,6 +110,7 @@ public class BuildingController : MonoBehaviour
         {
             SetLevel(building.Level, true);
         }
+        CheckIfUpgrading();
     }
 
     public void SetLevel(int level, bool shouldAnimate)
@@ -113,23 +131,7 @@ public class BuildingController : MonoBehaviour
             }
         }
 
-        foreach (var subBuilding in SubBuildings)
-        {
-            var data = BuildingDefinition.UpgradeConstraints.Find(x => x.BuildingDefinition == subBuilding.BuildingDefinition);
-            if(data == null)
-            {
-                subBuilding.gameObject.SetActive(false);
-            }
-            else if(BuildingDefinition.Level>= data.StartLevel)
-            {
-                subBuilding.gameObject.SetActive(true);
-            }
-            else
-            {
-                subBuilding.gameObject.SetActive(false);
-
-            }
-        }
+       
     }
 
     internal void Select()

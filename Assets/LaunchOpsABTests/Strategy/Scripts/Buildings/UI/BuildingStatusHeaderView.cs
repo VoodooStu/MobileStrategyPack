@@ -10,7 +10,9 @@ public enum BuildingHeaderState
     UpgradeAvailable,
     Maxed,
     UpgradeMaster,
-    UpgradeUnAvailable
+    UpgradeUnAvailable,
+    BeginUpgrade,
+    Build
 }
 
 public class BuildingStatusHeaderView : MonoBehaviour
@@ -24,7 +26,8 @@ public class BuildingStatusHeaderView : MonoBehaviour
     public GameObject MaxedImage;
     public GameObject UpgradeMasterIcon;
     public GameObject UpgradingImage;
-
+    public GameObject BackButton;
+    public GameObject BuildButton;
     BuildingDefinitionSO Data;
     public void Fill(BuildingDefinitionSO data)
     {
@@ -42,43 +45,46 @@ public class BuildingStatusHeaderView : MonoBehaviour
 
     public void SetState(BuildingHeaderState state)
     {
+        UpgradingImage.SetActive(false);
+        UpgradeAvailableImage.SetActive(false);
+        MaxedImage.SetActive(false);
+        UpgradeMasterIcon.SetActive(false);
+        UpgradeNotAvailableImage.SetActive(false);
+        BackButton.SetActive(false);
         switch (state)
         {
             case BuildingHeaderState.Upgrading:
                 UpgradingImage.SetActive(true);
-                UpgradeAvailableImage.SetActive(false);
-                MaxedImage.SetActive(false);
-                UpgradeMasterIcon.SetActive(false);
-                UpgradeNotAvailableImage.SetActive(false);
+                
                 break;
             case BuildingHeaderState.UpgradeAvailable:
-                UpgradingImage.SetActive(false);
+                
                 UpgradeAvailableImage.SetActive(true);
-                MaxedImage.SetActive(false);
-                UpgradeMasterIcon.SetActive(false);
-                UpgradeNotAvailableImage.SetActive(false);
+               
                 break;
             case BuildingHeaderState.Maxed:
-                UpgradingImage.SetActive(false);
-                UpgradeAvailableImage.SetActive(false);
+              
                 MaxedImage.SetActive(true);
-                UpgradeMasterIcon.SetActive(false);
-                UpgradeNotAvailableImage.SetActive(false);
+               
                 break;
             case BuildingHeaderState.UpgradeMaster:
-                UpgradingImage.SetActive(false);
-                UpgradeAvailableImage.SetActive(false);
-                MaxedImage.SetActive(false);
+               
                 UpgradeMasterIcon.SetActive(true);
-                UpgradeNotAvailableImage.SetActive(false);
+               
                 break;
             case BuildingHeaderState.UpgradeUnAvailable:
-                UpgradingImage.SetActive(false);
-                UpgradeAvailableImage.SetActive(false);
-                MaxedImage.SetActive(false);
-                UpgradeMasterIcon.SetActive(false);
+               
                 UpgradeNotAvailableImage.SetActive(true);
                 break;
+            case BuildingHeaderState.BeginUpgrade:
+
+                BackButton.SetActive(true);
+                break;
+            case BuildingHeaderState.Build:
+
+                BuildButton.SetActive(true);
+                break;
+
             default:
                 break;
         }

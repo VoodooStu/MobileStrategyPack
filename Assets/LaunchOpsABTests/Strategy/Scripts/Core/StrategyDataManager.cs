@@ -3,26 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
-    public static class StrategyDataManager
+public static class StrategyDataManager
+{
+    public static Dictionary<ResourceType, SavedFloat> Resources = new Dictionary<ResourceType, SavedFloat>();
+    public static Action OnResourceChanged = null;
+    public static SavedInt ExtraBuildingSlots = new SavedInt("VD_BuildingSlots", 0, true, () =>
     {
-        public static Dictionary<ResourceType, SavedFloat> Resources = new Dictionary<ResourceType, SavedFloat>();
-        public static Action OnResourceChanged = null;
-        public static SavedInt ExtraBuildingSlots = new SavedInt("VD_BuildingSlots", 0, true, () =>
-        {
-            OnResourceChanged?.Invoke();
-        });
+        OnResourceChanged?.Invoke();
+    });
     /// <summary>
     /// sets up a save state for every defined resources
     /// </summary>
-        public static void InitialiseResources()
+    public static void InitialiseResources()
+    {
+        foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
         {
-            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
-            {
-                Resources.Add(type, new SavedFloat("VD_Cur_" + type.ToString(), 0, true, () => {
-                    OnResourceChanged?.Invoke();
+            Resources.Add(type, new SavedFloat("VD_Cur_" + type.ToString(), 0, true, () => {
+                OnResourceChanged?.Invoke();
 
-                }));
-            }
+            }));
+        }
         if (StrategyManager.Instance.DebugResources)
         {
             foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
@@ -30,125 +30,136 @@ using UnityEngine;
                 Resources[type].Value = 100000000;
             }
         }
-       
+
     }
 
-        public static void AddResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
+    public static void AddResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
+    {
+        Debug.Log(string.Format("Adding Resource of type {0}: {1}", type.ToString(), amount));
+        Resources[type].Value += amount;
+        // TODO Add analytics
+    }
+
+    public static void SetResource(ResourceType type, float amount)
+    {
+        Debug.Log(string.Format("Setting Resource of type {0}: {1}", type.ToString(), amount));
+        Resources[type].Value = amount;
+        // TODO Add analytics
+    }
+
+    public static void RemoveResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
+    {
+        Debug.Log(string.Format("removing Resource of type {0}: {1}", type.ToString(), amount));
+        Resources[type].Value -= amount;
+        // TODO Add analytics
+    }
+
+
+    public static float GetResource(ResourceType type)
+    {
+        return Resources[type].Value;
+    }
+
+
+    public static Dictionary<string, SavedInt> BuildingLevels = new Dictionary<string, SavedInt>();
+    public static Dictionary<string, SavedBool> BuildingShouldUpgrade = new Dictionary<string, SavedBool>();
+    public static Dictionary<string, SavedDateTime> BuildingUpgradeTime = new Dictionary<string, SavedDateTime>();
+
+    public static void RegisterBuilding(BuildingDefinitionSO definition)
+    {
+        if (BuildingLevels.ContainsKey(definition.ID))
         {
-            Debug.Log(string.Format("Adding Resource of type {0}: {1}", type.ToString(), amount));
-            Resources[type].Value += amount;
-            // TODO Add analytics
+            Debug.LogError("Building Already Present in Dictionary: " + definition.ID);
+            return;
         }
-
-        public static void SetResource(ResourceType type, float amount)
+        BuildingLevels.Add(definition.ID, new SavedInt("VD_Building_" + definition.ID, 0, true, () =>
         {
-            Debug.Log(string.Format("Setting Resource of type {0}: {1}", type.ToString(), amount));
-            Resources[type].Value = amount;
-            // TODO Add analytics
-        }
-
-        public static void RemoveResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
+            StrategyEvents.OnBuildingLevelChanged?.Invoke(definition);
+        }));
+        BuildingShouldUpgrade.Add(definition.ID, new SavedBool("VD_Building_" + definition.ID + "_ShouldUpgrade", false, true, () =>
         {
-            Debug.Log(string.Format("removing Resource of type {0}: {1}", type.ToString(), amount));
-            Resources[type].Value -= amount;
-            // TODO Add analytics
-        }
 
-
-        public static float GetResource(ResourceType type)
+        }));
+        BuildingUpgradeTime.Add(definition.ID, new SavedDateTime("VD_Building_" + definition.ID + "_UpgradeTime", DateTime.UtcNow, true, () =>
         {
-            return Resources[type].Value;
-        }
 
+        }));
+    }
 
-        public static Dictionary<string, SavedInt> BuildingLevels = new Dictionary<string, SavedInt>();
-        public static Action OnBuildingLevelChanged = null;
-        public static void RegisterBuilding(BuildingDefinitionSO definition)
+    public static void SetBuildingLevel(string id, int level)
+    {
+        BuildingLevels[id].Value = level;
+    }
+    public static int GetBuildingLevel(string id)
+    {
+        return BuildingLevels[id].Value;
+    }
+    public static int GetBuildingLevel(BuildingDefinitionSO definition)
+    {
+        return BuildingLevels[definition.ID].Value;
+    }
+
+    public static void UpgradeBuildingLevel(BuildingDefinitionSO building)
+    {
+        BuildingLevels[building.ID].Value++;
+        StrategyEvents.OnBuildingLevelChanged?.Invoke(building);
+    }
+
+    internal static bool CanAfford(List<ResourceAmount> price)
+    {
+        bool canAfford = true;
+        foreach (var p in price)
         {
-            if (BuildingLevels.ContainsKey(definition.ID))
+            float amount = GetResource(p.type);
+            if (amount < p.amount)
             {
-                Debug.LogError("Building Already Present in Dictionary: " + definition.ID);
-                return;
+                canAfford = false;
+                break;
             }
-            BuildingLevels.Add(definition.ID, new SavedInt("VD_Building_" + definition.ID, 0, true, () =>
-            {
-                OnBuildingLevelChanged?.Invoke();
-            }));
         }
+        return canAfford;
+    }
 
-        public static void SetBuildingLevel(string id, int level)
+    internal static void Spend(List<ResourceAmount> price)
+    {
+        foreach (var p in price)
         {
-            BuildingLevels[id].Value = level;
+            RemoveResource(p.type, p.amount, "Building Upgrade");
+
         }
-        public static int GetBuildingLevel(string id)
+    }
+
+    internal static DateTime GetBuildingLastUpgradeTime(string iD)
+    {
+        if (!PlayerPrefs.HasKey("VD_Building_" + iD + "_LastUpgradeTime"))
         {
-            return BuildingLevels[id].Value;
-        }
-        public static int GetBuildingLevel(BuildingDefinitionSO definition)
-        {
-            return BuildingLevels[definition.ID].Value;
-        }
-
-        public static void UpgradeBuildingLevel(string id)
-        {
-            BuildingLevels[id].Value++;
-        }
-
-        internal static bool CanAfford(List<ResourceAmount> price)
-        {
-            bool canAfford = true;
-            foreach (var p in price)
-            {
-                float amount = GetResource(p.type);
-                if (amount < p.amount)
-                {
-                    canAfford = false;
-                    break;
-                }
-            }
-            return canAfford;
-        }
-
-        internal static void Spend(List<ResourceAmount> price)
-        {
-            foreach (var p in price)
-            {
-                RemoveResource(p.type, p.amount, "Building Upgrade");
-
-            }
-        }
-
-        internal static DateTime GetBuildingLastUpgradeTime(string iD)
-        {
-            if (!PlayerPrefs.HasKey("VD_Building_" + iD + "_LastUpgradeTime"))
-            {
-                return DateTime.MinValue;
-            }
-            long date = 0;
-            if (long.TryParse(PlayerPrefs.GetString("VD_Building_" + iD + "_LastUpgradeTime"), out date))
-            {
-                return DateTime.FromFileTimeUtc(date);
-            }
-
-
             return DateTime.MinValue;
         }
-
-        internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
+        long date = 0;
+        if (long.TryParse(PlayerPrefs.GetString("VD_Building_" + iD + "_LastUpgradeTime"), out date))
         {
-            PlayerPrefs.SetString("VD_Building_" + iD + "_LastUpgradeTime", value.ToFileTimeUtc().ToString());
+            return DateTime.FromFileTimeUtc(date);
         }
 
-        internal static bool GetBuildingShouldUpgrade(string iD)
-        {
-            return PlayerPrefs.GetInt("VD_Building_" + iD + "_ShouldUpgrade", 0) == 1;
-        }
 
-        internal static void SetBuildingShouldUpgrade(string iD, bool value)
-        {
-            PlayerPrefs.SetInt("VD_Building_" + iD + "_ShouldUpgrade", value ? 1 : 0);
-        }
+        return DateTime.MinValue;
     }
+
+    internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
+    {
+        BuildingUpgradeTime[iD].Value = value;
+    }
+
+    internal static bool GetBuildingShouldUpgrade(string iD)
+    {
+        return BuildingShouldUpgrade[iD].Value;
+    }
+
+    internal static void SetBuildingShouldUpgrade(string iD, bool value)
+    {
+        BuildingShouldUpgrade[iD].Value = value;
+    }
+}
 
 
 

@@ -67,8 +67,6 @@ public class BuildingManager : MonoBehaviour
 
     public List<BuildingDefinitionSO> BuildingsBeingUpgraded = new List<BuildingDefinitionSO>();
 
-    public Action<BuildingDefinitionSO> OnBuildingUpgraded;
-    public Action<BuildingDefinitionSO> OnBuildingBeginsUpgrade;
 
     private List<BuildingController> BuildingControllers = new List<BuildingController>();
     public BuildingDefinitionSO CurrentlySelectedBuilding =>CurrentlySelectedBuildingController?.BuildingDefinition;
@@ -91,9 +89,9 @@ public class BuildingManager : MonoBehaviour
                 BuildingsBeingUpgraded.RemoveAt(i);
               
                 building.ShouldUpgrade = false;
-                StrategyDataManager.UpgradeBuildingLevel(building.ID);
+                StrategyDataManager.UpgradeBuildingLevel(building);
                 i--;
-                OnBuildingUpgraded?.Invoke(building);
+               
             }
         }
     }
@@ -152,14 +150,14 @@ public class BuildingManager : MonoBehaviour
                 building.LastUpgradeTime = DateTime.UtcNow;
               
                 BuildingsBeingUpgraded.Add(building);
-
-                OnBuildingBeginsUpgrade?.Invoke(building);
+                StrategyEvents.OnBuildingUpgradeStart?.Invoke(building);
+              
                
             }
             else
             {
-                StrategyDataManager.UpgradeBuildingLevel(building.ID);
-                OnBuildingUpgraded?.Invoke(building);
+                StrategyDataManager.UpgradeBuildingLevel(building);
+                
             }
            
             if(building.BuildingType != BuildingType.Sub)
@@ -321,16 +319,10 @@ public class BuildingManager : MonoBehaviour
 
                 }
             }
-            if(buildingDefinition.Level == 0 && !BuildingsBeingUpgraded.Contains(buildingDefinition))
-            {
-                StrategyUIManager.Instance.BuildBuildingPopUp.Show();
-                StrategyUIManager.Instance.BuildBuildingPopUp.Fill(buildingDefinition);
-            }
-            else
-            {
-                StrategyUIManager.Instance.BuildingStatusView.Show(buildingDefinition);
+          
+            StrategyUIManager.Instance.BuildingStatusView.Show(buildingDefinition);
                
-            }
+            
             
           
         }
@@ -409,16 +401,16 @@ public class BuildingManager : MonoBehaviour
         BuildingsBeingUpgraded.Remove(data);
         data.ShouldUpgrade = false;
       //  data.LastUpgradeTime = DateTime.MinValue;
-        OnBuildingBeginsUpgrade?.Invoke(data);
+      StrategyEvents.OnBuildingUpgradeCancelled?.Invoke(data);
+        
     }
 
     internal void FinishUpgrade(BuildingDefinitionSO data)
     {
         BuildingsBeingUpgraded.Remove(data);
-        StrategyDataManager.UpgradeBuildingLevel(data.ID);
+        StrategyDataManager.UpgradeBuildingLevel(data);
         data.ShouldUpgrade = false;
       
-        OnBuildingUpgraded?.Invoke(data);
     }
 
     internal void SelectMasterBuilding()
