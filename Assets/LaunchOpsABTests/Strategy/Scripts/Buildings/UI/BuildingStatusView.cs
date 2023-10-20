@@ -12,17 +12,7 @@ public class BuildingStatusView : MonoBehaviour
     public BuildingInfoView BuildingInfo;
     public SubBuildingIconViews SubBuildingIcons;
     public GameObject MainArea;
-   // public TextMeshProUGUI MainBuildingTitle;
-
-
-    //public TextMeshProUGUI SubBuildingTitle;
-    //public TextMeshProUGUI BuildingDescription;
-    //public Image UpgradeProgressFill;
-
-    //public Image SubBuildingIcon;
- 
-   // public SubBuildingView SubBuildingPrefab;
-   // public Transform SubBuildingContainer;
+   
     private BuildingDefinitionSO Data;
     private BuildingDefinitionSO SubBuildingData;
    
@@ -82,14 +72,11 @@ public class BuildingStatusView : MonoBehaviour
         {
             return;
         }
-        var previousSub = SubBuildingData;
+        
         if (Data == building)
         {
             Fill(Data);
-            if (previousSub != null)
-            {
-                SelectSubBuilding(previousSub);
-            }
+            StartUpgradeProgress();
         }
     }
 
@@ -201,6 +188,7 @@ public class BuildingStatusView : MonoBehaviour
             {
                 HeaderView.SetState(BuildingHeaderState.Build);
                 viewType = BuildingViewType.BuildBuilding;
+                SelectMainBuilding();
                 UpgradeRequirementArea.Fill(Data);
             }
             else if (canUpgradeMain && isRestricted)
@@ -231,6 +219,8 @@ public class BuildingStatusView : MonoBehaviour
             SkipUpgradeCurrencyText.text = "<sprite=0> " + BuildingManager.Instance.GetGemsRequired(Data);
 
         }
+        UpgradeBonusText.text = BuildingManager.Instance.BuildingGlobalConfig.GetCurrentPowerLevel() + "<color=green>+" + BuildingManager.Instance.BuildingGlobalConfig.GetPowerLevel(Data.BuildingType);
+
         SwitchView(viewType);
 
         MainArea.gameObject.SetActive(false);
@@ -257,6 +247,11 @@ public class BuildingStatusView : MonoBehaviour
         HeaderView.SetState(BuildingHeaderState.BeginUpgrade);
         SwitchView(viewType);
         SelectMainBuilding();
+    }
+
+    public void OnClickBack()
+    {
+        Fill(Data);
     }
 
     public void EndUpgradeProgress()
@@ -295,7 +290,6 @@ public class BuildingStatusView : MonoBehaviour
       
       
         int powerAmount = BuildingManager.Instance.BuildingGlobalConfig.GetPowerLevel(Data.BuildingType);
-        UpgradeBonusText.text = BuildingManager.Instance.BuildingGlobalConfig.GetCurrentPowerLevel() + "<color=green>+" + BuildingManager.Instance.BuildingGlobalConfig.GetPowerLevel(Data.BuildingType);
         SelectMainBuilding();
        
         BuildingTimerPrefab.Fill(Data);

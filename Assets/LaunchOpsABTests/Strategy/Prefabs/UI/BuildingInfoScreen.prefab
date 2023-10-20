@@ -3149,6 +3149,34 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 661685369981633158}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 661685369981633158}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BuildingStatusView, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4211178121434236285, guid: f5aa234e8201b27419200e6d92080579, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5730165012365392944, guid: f5aa234e8201b27419200e6d92080579, type: 3}
       propertyPath: m_Name
       value: BuildingStatusHeader
@@ -3332,7 +3360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4744859002183477805, guid: 36347e86a711009409a3b7e47ed461c4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1080
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4744859002183477805, guid: 36347e86a711009409a3b7e47ed461c4, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3368,7 +3396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4744859002183477805, guid: 36347e86a711009409a3b7e47ed461c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 540
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4744859002183477805, guid: 36347e86a711009409a3b7e47ed461c4, type: 3}
       propertyPath: m_AnchoredPosition.y

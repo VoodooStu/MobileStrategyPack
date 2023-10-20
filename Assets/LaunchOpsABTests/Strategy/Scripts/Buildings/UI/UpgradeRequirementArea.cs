@@ -28,7 +28,7 @@ public class UpgradeRequirementArea : MonoBehaviour
             var requirement = Instantiate(upgradeRequirementItem, content);
             requirement.Fill(new BuildingUpgradeConstraint()
             {
-                StartLevel = building.Level,
+                StartLevel = Mathf.Max(building.MasterBuildingConstraint,building.Level),
                 BuildingDefinition = BuildingManager.Instance.MasterBuilding
             });
             upgradeRequirementItems.Add(requirement);

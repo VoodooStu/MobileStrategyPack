@@ -160,10 +160,10 @@ public class BuildingManager : MonoBehaviour
                 
             }
            
-            if(building.BuildingType != BuildingType.Sub)
-            {
-               SelectBuilding(building);
-            }
+            //if(building.BuildingType != BuildingType.Sub)
+            //{
+            //   SelectBuilding(building);
+            //}
 
         }
         else

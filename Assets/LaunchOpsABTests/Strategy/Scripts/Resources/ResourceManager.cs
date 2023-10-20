@@ -10,10 +10,8 @@ public enum ResourceType
 {
     Time = -1,
     Soft = 0,
-    Steel = 1,
-    Special =2,
-    Oil = 3,
-    Food= 4,
+    Special =1,
+    Food= 2,
 }
 [Serializable]
 public class ResourceIcon

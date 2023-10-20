@@ -16,6 +16,12 @@ public class BuildingController : MonoBehaviour
     public BuildingNameTagView NameTag;
     private void Awake()
     {
+        if(BuildingDefinition == null)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+
         if(NameTag!=null)
             NameTag.enabled = false;
     }

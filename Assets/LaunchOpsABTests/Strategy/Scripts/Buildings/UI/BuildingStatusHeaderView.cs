@@ -28,6 +28,7 @@ public class BuildingStatusHeaderView : MonoBehaviour
     public GameObject UpgradingImage;
     public GameObject BackButton;
     public GameObject BuildButton;
+    
     BuildingDefinitionSO Data;
     public void Fill(BuildingDefinitionSO data)
     {
@@ -51,6 +52,7 @@ public class BuildingStatusHeaderView : MonoBehaviour
         UpgradeMasterIcon.SetActive(false);
         UpgradeNotAvailableImage.SetActive(false);
         BackButton.SetActive(false);
+       BuildButton.SetActive(false);
         switch (state)
         {
             case BuildingHeaderState.Upgrading:

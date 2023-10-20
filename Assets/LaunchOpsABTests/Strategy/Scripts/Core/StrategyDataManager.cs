@@ -131,18 +131,7 @@ public static class StrategyDataManager
 
     internal static DateTime GetBuildingLastUpgradeTime(string iD)
     {
-        if (!PlayerPrefs.HasKey("VD_Building_" + iD + "_LastUpgradeTime"))
-        {
-            return DateTime.MinValue;
-        }
-        long date = 0;
-        if (long.TryParse(PlayerPrefs.GetString("VD_Building_" + iD + "_LastUpgradeTime"), out date))
-        {
-            return DateTime.FromFileTimeUtc(date);
-        }
-
-
-        return DateTime.MinValue;
+        return BuildingUpgradeTime[iD].Value;
     }
 
     internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
