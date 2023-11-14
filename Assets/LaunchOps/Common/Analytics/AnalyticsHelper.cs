@@ -101,10 +101,23 @@ public static void TrackCurrencyTransaction(int currencyAmount, string placement
     }
 }
 
-public static void TrackCurrencyTransaction(int currencyAmount, PlacementEnum placement,
+    public static void SimpleTrackCurrency(float currencyAmount, string transactionType,string resourceType)
+    {
+        Dictionary<string, object> data = new Dictionary<string, object>()
+        {
+            { "currency_amount", currencyAmount },
+            { "transaction_type", transactionType },
+            { "resource_type", resourceType },
+        };
+        TrackCustomEvent("currency_transaction", data);
+    }   
+   
+
+    public static void TrackCurrencyTransaction(int currencyAmount, PlacementEnum placement,
     CurrencyTransactionType currencyTransactionType = CurrencyTransactionType.Gameplay,
     CurrencyEnum currencyEnum = CurrencyEnum.Soft)
 {
+
 #if VOODOO_SAUCE
         ItemTransactionParameters transaction = new ItemTransactionParameters();
         transaction.balance = DataManager.Soft;
@@ -121,20 +134,20 @@ public static void TrackCurrencyTransaction(int currencyAmount, PlacementEnum pl
         transaction.currencyUsed = currencyTransactionType;
         VoodooSauce.OnItemTransaction(transaction);
 #else
-/*    if (currencyAmount > 0)
-    {
-        TinySauce.OnCurrencyGiven(currencyEnum.ToString(), currencyAmount, currencyTransactionType.ToString(),
-            placement.ToString());
-    }
-    else
-    {
-        TinySauce.OnCurrencyTaken(currencyEnum.ToString(), currencyAmount, currencyTransactionType.ToString(),
-            placement.ToString());
-    }*/
+        /*    if (currencyAmount > 0)
+            {
+                TinySauce.OnCurrencyGiven(currencyEnum.ToString(), currencyAmount, currencyTransactionType.ToString(),
+                    placement.ToString());
+            }
+            else
+            {
+                TinySauce.OnCurrencyTaken(currencyEnum.ToString(), currencyAmount, currencyTransactionType.ToString(),
+                    placement.ToString());
+            }*/
 #endif
-}
-    
-public enum CurrencyEnum
+    }
+
+    public enum CurrencyEnum
 {
     Soft,
     Hard,

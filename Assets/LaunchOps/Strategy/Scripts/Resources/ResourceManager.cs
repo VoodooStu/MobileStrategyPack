@@ -78,7 +78,11 @@ public class ResourceManager : MonoBehaviour
     }
 
     public List<ResourceIcon> ResourceIcons = new List<ResourceIcon>();
-
+    /// <summary>
+    /// Returns the appropriate icon for a given resource type
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
     internal Sprite GetResourceIcon(ResourceType type)
     {
         var icon = ResourceIcons.Where(x => x.Type == type).FirstOrDefault();
@@ -89,7 +93,21 @@ public class ResourceManager : MonoBehaviour
         }
         return icon.Icon;
     }
-
+    /// <summary>
+    /// Returns the appropriate sprite asset for a given resource type
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    internal TMP_SpriteAsset GetResourceSpriteAsset(ResourceType type)
+    {
+        var icon = ResourceIcons.Where(x => x.Type == type).FirstOrDefault();
+        if (icon == null)
+        {
+            Debug.LogError("No Sprite Asset found for resource type " + type);
+            return null;
+        }
+        return icon.SpriteAsset;
+    }
     public void CheckGeneration()
     {
         DateTime lastGen = LastResourceGeneration.Value;
@@ -101,7 +119,12 @@ public class ResourceManager : MonoBehaviour
         }
         lastGen = LastResourceGeneration.Value;
     }
-
+    /// <summary>
+    /// Returns the rate of a given resource for a given building
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="rate"></param>
+    /// <returns></returns>
     internal float GetRate(BuildingDefinitionSO data, ResourceRate rate)
     {
         return data.Level * rate.Rate;
@@ -155,7 +178,12 @@ public class ResourceManager : MonoBehaviour
             StrategyDataManager.AddResource(resource.Key, resource.Value,"generation");
         }
     }
-
+    /// <summary>
+    /// Calculates and awards resources for a given building over a given time
+    /// </summary>
+    /// <param name="building"></param>
+    /// <param name="resources"></param>
+    /// <param name="numberOfSeconds"></param>
     private void GenerateResources(BuildingDefinitionSO building, ref Dictionary<ResourceType, float> resources, int numberOfSeconds)
     {
         numberOfSeconds = Mathf.Min (numberOfSeconds, Configuration.MaxGenerationTime);
@@ -173,20 +201,14 @@ public class ResourceManager : MonoBehaviour
            
         }
     }
-
+    /// <summary>
+    /// Returns the number of gems required to speed up a given timespan
+    /// </summary>
+    /// <param name="timeSpan"></param>
+    /// <returns></returns>
     internal int GetGemsRequired(TimeSpan timeSpan)
     {
         return (int)Mathf.Ceil((float)timeSpan.TotalSeconds / Configuration.SecondsToGems);
     }
-
-    internal TMP_SpriteAsset GetResourceSpriteAsset(ResourceType type)
-    {
-        var icon = ResourceIcons.Where(x => x.Type == type).FirstOrDefault();
-        if (icon == null)
-        {
-            Debug.LogError("No Sprite Asset found for resource type " + type);
-            return null;
-        }
-        return icon.SpriteAsset;
-    }
+    
 }

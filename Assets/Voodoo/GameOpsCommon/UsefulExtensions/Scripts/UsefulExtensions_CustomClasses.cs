@@ -402,12 +402,11 @@ public class SavedFloat
     {
         return Value.ToString();
     }
-
-
     public static implicit operator float(SavedFloat v)
     {
         return v.Value;
     }
+    
 
 }
 

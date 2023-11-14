@@ -10,12 +10,7 @@ public class UpgradeRequirementArea : MonoBehaviour
     public Transform content;
     public Color FirstColor;
     public Color SecondColor;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+   
     public void Fill(BuildingDefinitionSO building)
     {
         while (upgradeRequirementItems.Count > 0)

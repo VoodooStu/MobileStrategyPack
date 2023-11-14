@@ -7,6 +7,10 @@ public static class StrategyDataManager
 {
     public static Dictionary<ResourceType, SavedFloat> Resources = new Dictionary<ResourceType, SavedFloat>();
     public static Action OnResourceChanged = null;
+
+    /// <summary>
+    /// This is the amount of extra building slots the player has purchased
+    /// </summary>
     public static SavedInt ExtraBuildingSlots = new SavedInt("VD_BuildingSlots", 0, true, () =>
     {
         OnResourceChanged?.Invoke();
@@ -32,26 +36,43 @@ public static class StrategyDataManager
         }
 
     }
-
+    /// <summary>
+    /// TODO add your own resource save logic here
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
+    /// <param name="source"></param>
+    /// <param name="transactionType"></param>
     public static void AddResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
     {
         Debug.Log(string.Format("Adding Resource of type {0}: {1}", type.ToString(), amount));
         Resources[type].Value += amount;
-        // TODO Add analytics
+        AnalyticsHelper.SimpleTrackCurrency(amount, source, type.ToString());
+       
     }
-
+    /// <summary>
+    /// TODO add your own resource save logic here
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
     public static void SetResource(ResourceType type, float amount)
     {
         Debug.Log(string.Format("Setting Resource of type {0}: {1}", type.ToString(), amount));
         Resources[type].Value = amount;
-        // TODO Add analytics
+      
     }
-
+    /// <summary>
+    /// TODO add your own resource save logic here
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="amount"></param>
+    /// <param name="source"></param>
+    /// <param name="transactionType"></param>
     public static void RemoveResource(ResourceType type, float amount, string source, AnalyticsHelper.CurrencyTransactionType transactionType = AnalyticsHelper.CurrencyTransactionType.Gameplay)
     {
         Debug.Log(string.Format("removing Resource of type {0}: {1}", type.ToString(), amount));
         Resources[type].Value -= amount;
-        // TODO Add analytics
+        AnalyticsHelper.SimpleTrackCurrency(amount, source, type.ToString());
     }
 
 
@@ -64,7 +85,10 @@ public static class StrategyDataManager
     public static Dictionary<string, SavedInt> BuildingLevels = new Dictionary<string, SavedInt>();
     public static Dictionary<string, SavedBool> BuildingShouldUpgrade = new Dictionary<string, SavedBool>();
     public static Dictionary<string, SavedDateTime> BuildingUpgradeTime = new Dictionary<string, SavedDateTime>();
-
+    /// <summary>
+    /// This function sets all the save info for the buildings
+    /// </summary>
+    /// <param name="definition"></param>
     public static void RegisterBuilding(BuildingDefinitionSO definition)
     {
         if (BuildingLevels.ContainsKey(definition.ID))
@@ -85,7 +109,7 @@ public static class StrategyDataManager
 
         }));
     }
-
+    #region Building Data
     public static void SetBuildingLevel(string id, int level)
     {
         BuildingLevels[id].Value = level;
@@ -104,7 +128,26 @@ public static class StrategyDataManager
         BuildingLevels[building.ID].Value++;
         StrategyEvents.OnBuildingLevelChanged?.Invoke(building);
     }
+    internal static DateTime GetBuildingLastUpgradeTime(string iD)
+    {
+        return BuildingUpgradeTime[iD].Value;
+    }
 
+    internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
+    {
+        BuildingUpgradeTime[iD].Value = value;
+    }
+
+    internal static bool GetBuildingShouldUpgrade(string iD)
+    {
+        return BuildingShouldUpgrade[iD].Value;
+    }
+
+    internal static void SetBuildingShouldUpgrade(string iD, bool value)
+    {
+        BuildingShouldUpgrade[iD].Value = value;
+    }
+    #endregion
     internal static bool CanAfford(List<ResourceAmount> price)
     {
         bool canAfford = true;
@@ -129,25 +172,7 @@ public static class StrategyDataManager
         }
     }
 
-    internal static DateTime GetBuildingLastUpgradeTime(string iD)
-    {
-        return BuildingUpgradeTime[iD].Value;
-    }
-
-    internal static void SetBuildingLastUpgradeTime(string iD, DateTime value)
-    {
-        BuildingUpgradeTime[iD].Value = value;
-    }
-
-    internal static bool GetBuildingShouldUpgrade(string iD)
-    {
-        return BuildingShouldUpgrade[iD].Value;
-    }
-
-    internal static void SetBuildingShouldUpgrade(string iD, bool value)
-    {
-        BuildingShouldUpgrade[iD].Value = value;
-    }
+    
 }
 
 
